@@ -1,0 +1,22 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      auth: false
+      description: "Public API for resolving crypto addresses into presentation entities and labels."
+      servers: [
+        {
+          description: "Production"
+          url: "https://cryptolabel.io/api/v1"
+        }
+      ]
+      summary: "Public API for resolving crypto addresses into presentation entities and labels."
+      title: "CryptoLabel API"
+      version: "1.0.0"
+      website: "https://cryptolabel.io"
+    }
+  }
+}
+

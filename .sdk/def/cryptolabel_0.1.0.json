@@ -1,0 +1,466 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "CryptoLabel API",
+    "version": "1.0.0",
+    "description": "Public API for resolving crypto addresses into presentation entities and labels."
+  },
+  "servers": [
+    {
+      "url": "https://cryptolabel.io/api/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/address/{chain}/{address}": {
+      "get": {
+        "operationId": "getAddressDetails",
+        "summary": "Resolve crypto address labels",
+        "description": "Resolves an address, detects its type and model, maps it to a presentation entity, and returns all known labels.",
+        "parameters": [
+          {
+            "name": "chain",
+            "in": "path",
+            "required": true,
+            "description": "Blockchain identifier.",
+            "schema": {
+              "$ref": "#/components/schemas/Chain"
+            }
+          },
+          {
+            "name": "address",
+            "in": "path",
+            "required": true,
+            "description": "Address validated against the selected chain.",
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "examples": [
+                "0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651"
+              ]
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "required": false,
+            "description": "Set to application/json.",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "User-Agent",
+            "in": "header",
+            "required": false,
+            "description": "If possible, include your application name and a contact email so CryptoLabel can reach you about API updates, maintenance, or request-specific issues.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "YourAppName/1.0 (contact@example.com)"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resolved address details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddressResponse"
+                },
+                "examples": {
+                  "ethereumKraken": {
+                    "value": {
+                      "query": {
+                        "chain": "ethereum",
+                        "readableChain": "Ethereum",
+                        "address": "0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651"
+                      },
+                      "address": {
+                        "value": "0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651",
+                        "type": "eoa",
+                        "readableType": "Externally Owned Account",
+                        "model": "account_based",
+                        "readableModel": "Account-based model",
+                        "explorerUrl": "https://www.blockchain.com/explorer/addresses/eth/0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651"
+                      },
+                      "entity": {
+                        "name": "Kraken",
+                        "category": "exchange",
+                        "readableCategory": "Exchange"
+                      },
+                      "labels": [
+                        {
+                          "type": "exchange_cold_wallet",
+                          "readableType": "Exchange Cold Wallet",
+                          "category": "cex",
+                          "readableCategory": "Centralized Exchange",
+                          "sourceType": "public",
+                          "readableSourceType": "Public",
+                          "method": "aggregation",
+                          "readableMethod": "Aggregation",
+                          "status": "active",
+                          "readableStatus": "Active"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid chain or address.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Chain": {
+        "type": "string",
+        "enum": [
+          "bitcoin",
+          "ethereum",
+          "tron"
+        ]
+      },
+      "AddressType": {
+        "type": "string",
+        "enum": [
+          "contract",
+          "eoa",
+          "unknown"
+        ]
+      },
+      "AddressModel": {
+        "type": "string",
+        "enum": [
+          "account_based",
+          "utxo"
+        ]
+      },
+      "EntityCategory": {
+        "type": "string",
+        "enum": [
+          "bridge",
+          "custodian",
+          "dao",
+          "defi_protocol",
+          "dex_aggregator",
+          "exchange",
+          "gambling_service",
+          "government",
+          "individual_address",
+          "illicit_activity",
+          "marketplace",
+          "mining_pool",
+          "mixer",
+          "payment_service",
+          "public_figure",
+          "service_provider",
+          "token_issuer",
+          "wallet_provider",
+          "unknown"
+        ]
+      },
+      "LabelType": {
+        "type": "string",
+        "enum": [
+          "bridge_address",
+          "burn_address",
+          "compliance_related",
+          "cross_chain_activity",
+          "custodial_wallet",
+          "defi_pool",
+          "defi_treasury",
+          "deployer",
+          "dex_contract",
+          "darknet_market",
+          "exchange_cold_wallet",
+          "exchange_deposit_wallet",
+          "exchange_hot_wallet",
+          "exchange_withdrawal_wallet",
+          "forwarder_contract",
+          "fraud_related",
+          "gambling_address",
+          "high_frequency",
+          "high_volume",
+          "institutional_flow",
+          "market_maker_related",
+          "marketplace_address",
+          "money_laundering",
+          "mining_pool_payout",
+          "mixer_address",
+          "blackmail",
+          "payment_processor",
+          "phishing",
+          "proxy_contract",
+          "public_figure_related",
+          "risky_service",
+          "sanctioned",
+          "scam",
+          "service_wallet",
+          "staking_wallet",
+          "stolen_funds",
+          "terrorism_related",
+          "treasury_wallet",
+          "unknown",
+          "validator",
+          "wrapper_contract"
+        ]
+      },
+      "LabelCategory": {
+        "type": "string",
+        "enum": [
+          "behavior",
+          "bridge",
+          "cex",
+          "compliance",
+          "crime",
+          "custody",
+          "defi",
+          "flow",
+          "fraud",
+          "gambling",
+          "identity",
+          "infrastructure",
+          "marketplace",
+          "mining",
+          "mixer",
+          "payment",
+          "risk",
+          "sanctions",
+          "service",
+          "trading",
+          "treasury",
+          "unknown",
+          "wallet"
+        ]
+      },
+      "LabelSource": {
+        "type": "string",
+        "enum": [
+          "internal",
+          "manual_review",
+          "partner",
+          "public"
+        ]
+      },
+      "LabelMethod": {
+        "type": "string",
+        "enum": [
+          "aggregation",
+          "heuristic",
+          "import",
+          "manual",
+          "onchain_analysis"
+        ]
+      },
+      "LabelStatus": {
+        "type": "string",
+        "enum": [
+          "active",
+          "historical",
+          "inactive"
+        ]
+      },
+      "Query": {
+        "type": "object",
+        "required": [
+          "chain",
+          "readableChain",
+          "address"
+        ],
+        "properties": {
+          "chain": {
+            "$ref": "#/components/schemas/Chain"
+          },
+          "readableChain": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "required": [
+          "value",
+          "type",
+          "readableType",
+          "model",
+          "readableModel",
+          "explorerUrl"
+        ],
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AddressType"
+          },
+          "readableType": {
+            "type": "string"
+          },
+          "model": {
+            "$ref": "#/components/schemas/AddressModel"
+          },
+          "readableModel": {
+            "type": "string"
+          },
+          "explorerUrl": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Entity": {
+        "type": "object",
+        "required": [
+          "name",
+          "category",
+          "readableCategory"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/EntityCategory"
+          },
+          "readableCategory": {
+            "type": "string"
+          }
+        }
+      },
+      "Label": {
+        "type": "object",
+        "required": [
+          "type",
+          "readableType",
+          "category",
+          "readableCategory",
+          "sourceType",
+          "readableSourceType",
+          "method",
+          "readableMethod",
+          "status",
+          "readableStatus"
+        ],
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/LabelType"
+          },
+          "readableType": {
+            "type": "string"
+          },
+          "category": {
+            "$ref": "#/components/schemas/LabelCategory"
+          },
+          "readableCategory": {
+            "type": "string"
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/LabelSource"
+          },
+          "readableSourceType": {
+            "type": "string"
+          },
+          "method": {
+            "$ref": "#/components/schemas/LabelMethod"
+          },
+          "readableMethod": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/LabelStatus"
+          },
+          "readableStatus": {
+            "type": "string"
+          }
+        }
+      },
+      "AddressResponse": {
+        "type": "object",
+        "required": [
+          "query",
+          "address",
+          "entity",
+          "labels"
+        ],
+        "properties": {
+          "query": {
+            "$ref": "#/components/schemas/Query"
+          },
+          "address": {
+            "$ref": "#/components/schemas/Address"
+          },
+          "entity": {
+            "$ref": "#/components/schemas/Entity"
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Label"
+            }
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "required": [
+          "code",
+          "message",
+          "path",
+          "timestamp"
+        ],
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Stable machine-readable error code.",
+            "examples": [
+              "bad_request"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "Safe public error message."
+          },
+          "path": {
+            "type": "string",
+            "examples": [
+              "/api/v1/address/ethereum/0x123"
+            ]
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
+    }
+  }
+}

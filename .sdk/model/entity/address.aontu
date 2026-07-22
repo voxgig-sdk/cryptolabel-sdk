@@ -1,0 +1,135 @@
+# Entity: address
+
+main: kit: entity: address: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "category"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "method"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "readable_category"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "readable_method"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "readable_source_type"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "readable_status"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "readable_type"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "source_type"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "status"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "type"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "address"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            header: [
+              {
+                example: "application/json"
+                kind: "header"
+                name: "accept"
+                orig: "accept"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "header"
+                name: "user_agent"
+                orig: "user_agent"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+            params: [
+              {
+                kind: "param"
+                name: "address"
+                orig: "address"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "chain"
+                orig: "chain"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/address/{chain}/{address}"
+          parts: [
+            "address"
+            "{chain}"
+            "{address}"
+          ]
+          select: {
+            exist: [
+              "accept"
+              "address"
+              "chain"
+              "user_agent"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.address`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "address"
+      ]
+    ]
+  }
+
+
+
+}

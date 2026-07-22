@@ -1,0 +1,64 @@
+{
+  "existing": {
+    "address": {
+      "ADDRESS00": {
+        "category": "s64",
+        "method": "s65",
+        "readable_category": "s66",
+        "readable_method": "s67",
+        "readable_source_type": "s68",
+        "readable_status": "s69",
+        "readable_type": "s6a",
+        "source_type": "s6b",
+        "status": "s6c",
+        "type": "s6d",
+        "address": "ADDRESS01",
+        "chain": "CHAIN01"
+      },
+      "ADDRESS01": {
+        "category": "sc8",
+        "method": "sc9",
+        "readable_category": "sca",
+        "readable_method": "scb",
+        "readable_source_type": "scc",
+        "readable_status": "scd",
+        "readable_type": "sce",
+        "source_type": "scf",
+        "status": "sd0",
+        "type": "sd1",
+        "address": "ADDRESS01",
+        "chain": "CHAIN01"
+      },
+      "ADDRESS02": {
+        "category": "s12c",
+        "method": "s12d",
+        "readable_category": "s12e",
+        "readable_method": "s12f",
+        "readable_source_type": "s130",
+        "readable_status": "s131",
+        "readable_type": "s132",
+        "source_type": "s133",
+        "status": "s134",
+        "type": "s135",
+        "address": "ADDRESS01",
+        "chain": "CHAIN01"
+      }
+    }
+  },
+  "new": {
+    "address": {
+      "address_ref01": {
+        "category": "s190",
+        "method": "s191",
+        "readable_category": "s192",
+        "readable_method": "s193",
+        "readable_source_type": "s194",
+        "readable_status": "s195",
+        "readable_type": "s196",
+        "source_type": "s197",
+        "status": "s198",
+        "type": "s199"
+      }
+    }
+  }
+}

@@ -1,0 +1,67 @@
+<?php
+declare(strict_types=1);
+
+// Cryptolabel SDK utility registration
+
+require_once __DIR__ . '/../core/UtilityType.php';
+require_once __DIR__ . '/Clean.php';
+require_once __DIR__ . '/Done.php';
+require_once __DIR__ . '/MakeError.php';
+require_once __DIR__ . '/FeatureAdd.php';
+require_once __DIR__ . '/FeatureHook.php';
+require_once __DIR__ . '/FeatureInit.php';
+require_once __DIR__ . '/Fetcher.php';
+require_once __DIR__ . '/MakeFetchDef.php';
+require_once __DIR__ . '/MakeContext.php';
+require_once __DIR__ . '/MakeOptions.php';
+require_once __DIR__ . '/MakeRequest.php';
+require_once __DIR__ . '/MakeResponse.php';
+require_once __DIR__ . '/MakeResult.php';
+require_once __DIR__ . '/MakePoint.php';
+require_once __DIR__ . '/MakeSpec.php';
+require_once __DIR__ . '/MakeUrl.php';
+require_once __DIR__ . '/Param.php';
+require_once __DIR__ . '/PrepareAuth.php';
+require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/PrepareHeaders.php';
+require_once __DIR__ . '/PrepareMethod.php';
+require_once __DIR__ . '/PrepareParams.php';
+require_once __DIR__ . '/PreparePath.php';
+require_once __DIR__ . '/PrepareQuery.php';
+require_once __DIR__ . '/ResultBasic.php';
+require_once __DIR__ . '/ResultBody.php';
+require_once __DIR__ . '/ResultHeaders.php';
+require_once __DIR__ . '/TransformRequest.php';
+require_once __DIR__ . '/TransformResponse.php';
+
+CryptolabelUtility::setRegistrar(function (CryptolabelUtility $u): void {
+    $u->clean = [CryptolabelClean::class, 'call'];
+    $u->done = [CryptolabelDone::class, 'call'];
+    $u->make_error = [CryptolabelMakeError::class, 'call'];
+    $u->feature_add = [CryptolabelFeatureAdd::class, 'call'];
+    $u->feature_hook = [CryptolabelFeatureHook::class, 'call'];
+    $u->feature_init = [CryptolabelFeatureInit::class, 'call'];
+    $u->fetcher = [CryptolabelFetcher::class, 'call'];
+    $u->make_fetch_def = [CryptolabelMakeFetchDef::class, 'call'];
+    $u->make_context = [CryptolabelMakeContext::class, 'call'];
+    $u->make_options = [CryptolabelMakeOptions::class, 'call'];
+    $u->make_request = [CryptolabelMakeRequest::class, 'call'];
+    $u->make_response = [CryptolabelMakeResponse::class, 'call'];
+    $u->make_result = [CryptolabelMakeResult::class, 'call'];
+    $u->make_point = [CryptolabelMakePoint::class, 'call'];
+    $u->make_spec = [CryptolabelMakeSpec::class, 'call'];
+    $u->make_url = [CryptolabelMakeUrl::class, 'call'];
+    $u->param = [CryptolabelParam::class, 'call'];
+    $u->prepare_auth = [CryptolabelPrepareAuth::class, 'call'];
+    $u->prepare_body = [CryptolabelPrepareBody::class, 'call'];
+    $u->prepare_headers = [CryptolabelPrepareHeaders::class, 'call'];
+    $u->prepare_method = [CryptolabelPrepareMethod::class, 'call'];
+    $u->prepare_params = [CryptolabelPrepareParams::class, 'call'];
+    $u->prepare_path = [CryptolabelPreparePath::class, 'call'];
+    $u->prepare_query = [CryptolabelPrepareQuery::class, 'call'];
+    $u->result_basic = [CryptolabelResultBasic::class, 'call'];
+    $u->result_body = [CryptolabelResultBody::class, 'call'];
+    $u->result_headers = [CryptolabelResultHeaders::class, 'call'];
+    $u->transform_request = [CryptolabelTransformRequest::class, 'call'];
+    $u->transform_response = [CryptolabelTransformResponse::class, 'call'];
+});
