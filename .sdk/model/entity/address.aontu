@@ -16,32 +16,32 @@ main: kit: entity: address: {
       type: "`$STRING`"
     }
     {
-      name: "readable_category"
+      name: "readableCategory"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "readable_method"
+      name: "readableMethod"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "readable_source_type"
+      name: "readableSourceType"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "readable_status"
+      name: "readableStatus"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "readable_type"
+      name: "readableType"
       req: true
       type: "`$STRING`"
     }
     {
-      name: "source_type"
+      name: "sourceType"
       req: true
       type: "`$STRING`"
     }

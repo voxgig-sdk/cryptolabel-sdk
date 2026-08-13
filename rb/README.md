@@ -119,7 +119,8 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = CryptolabelSDK.test
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 address = client.Address.list()
 puts address
 ```
@@ -238,12 +239,12 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `category` |  |
 | `method` |  |
-| `readable_category` |  |
-| `readable_method` |  |
-| `readable_source_type` |  |
-| `readable_status` |  |
-| `readable_type` |  |
-| `source_type` |  |
+| `readableCategory` |  |
+| `readableMethod` |  |
+| `readableSourceType` |  |
+| `readableStatus` |  |
+| `readableType` |  |
+| `sourceType` |  |
 | `status` |  |
 | `type` |  |
 
@@ -272,12 +273,12 @@ Create an instance: `address = client.Address`
 | --- | --- | --- |
 | `category` | `String` |  |
 | `method` | `String` |  |
-| `readable_category` | `String` |  |
-| `readable_method` | `String` |  |
-| `readable_source_type` | `String` |  |
-| `readable_status` | `String` |  |
-| `readable_type` | `String` |  |
-| `source_type` | `String` |  |
+| `readableCategory` | `String` |  |
+| `readableMethod` | `String` |  |
+| `readableSourceType` | `String` |  |
+| `readableStatus` | `String` |  |
+| `readableType` | `String` |  |
+| `sourceType` | `String` |  |
 | `status` | `String` |  |
 | `type` | `String` |  |
 

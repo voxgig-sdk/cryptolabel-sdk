@@ -23,7 +23,7 @@ support (`list`):
 
 ```ts
 const client = new CryptolabelSDK()
-const items = await client.Address().list()
+const items = await client.Address().list({ address: "example", chain: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = CryptolabelSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = CryptolabelSDK.test({
+  entity: {
+    address: {
+      test01: { id: 'test01' },
+    },
+  },
+})
 const addresss = await client.Address().list()
-// addresss is an array of bare Address records populated with mock data
+// addresss is an array of Address entities, populated with mock data
+// — call addresss[0].data() for the record itself
 console.log(addresss)
 ```
 
@@ -110,8 +119,8 @@ import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
 
 const client = new CryptolabelSDK()
 
-// List all addresss (returns Address[])
-const addresss = await client.Address().list()
+// List all addresss (returns AddressEntity[] — .data() for the record)
+const addresss = await client.Address().list({ address: "example", chain: "example" })
 for (const address of addresss) {
   console.log(address)
 }
@@ -170,7 +179,7 @@ from cryptolabel_sdk import CryptolabelSDK
 client = CryptolabelSDK()
 
 # List all addresss (returns a list, raises on error)
-addresss = client.Address().list()
+addresss = client.Address().list({"address": "example", "chain": "example"})
 for address in addresss:
     print(address)
 ```
@@ -343,6 +352,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://cryptolabel.io/api/v1](https://cryptolabel.io/api/v1)
 

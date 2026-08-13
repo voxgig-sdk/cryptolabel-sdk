@@ -218,9 +218,9 @@ data **directly** — there is no wrapper:
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local address, err = client:Address():load()
+    local address, err = client:Address():list()
     if err then error(err) end
-    -- address is the loaded record
+    -- address is the record list
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -233,12 +233,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `category` |  |
 | `method` |  |
-| `readable_category` |  |
-| `readable_method` |  |
-| `readable_source_type` |  |
-| `readable_status` |  |
-| `readable_type` |  |
-| `source_type` |  |
+| `readableCategory` |  |
+| `readableMethod` |  |
+| `readableSourceType` |  |
+| `readableStatus` |  |
+| `readableType` |  |
+| `sourceType` |  |
 | `status` |  |
 | `type` |  |
 
@@ -267,12 +267,12 @@ Create an instance: `local address = client:Address(nil)`
 | --- | --- | --- |
 | `category` | `string` |  |
 | `method` | `string` |  |
-| `readable_category` | `string` |  |
-| `readable_method` | `string` |  |
-| `readable_source_type` | `string` |  |
-| `readable_status` | `string` |  |
-| `readable_type` | `string` |  |
-| `source_type` | `string` |  |
+| `readableCategory` | `string` |  |
+| `readableMethod` | `string` |  |
+| `readableSourceType` | `string` |  |
+| `readableStatus` | `string` |  |
+| `readableType` | `string` |  |
+| `sourceType` | `string` |  |
 | `status` | `string` |  |
 | `type` | `string` |  |
 

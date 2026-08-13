@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import CryptolabelSDK
-from core.error import CryptolabelError
-from core.result import CryptolabelResult
-from core.response import CryptolabelResponse
-from core.spec import CryptolabelSpec
-from feature.base_feature import CryptolabelBaseFeature
+from projectname_sdk.core.error import CryptolabelError
+from projectname_sdk.core.result import CryptolabelResult
+from projectname_sdk.core.response import CryptolabelResponse
+from projectname_sdk.core.spec import CryptolabelSpec
+from projectname_sdk.feature.base_feature import CryptolabelBaseFeature
 
 
 def _client():

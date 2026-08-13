@@ -125,7 +125,8 @@ Create a mock client for unit testing — no server required:
 ```php
 $client = CryptolabelSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $address = $client->Address()->list();
 print_r($address);
 ```
@@ -224,7 +225,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -248,12 +249,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `category` |  |
 | `method` |  |
-| `readable_category` |  |
-| `readable_method` |  |
-| `readable_source_type` |  |
-| `readable_status` |  |
-| `readable_type` |  |
-| `source_type` |  |
+| `readableCategory` |  |
+| `readableMethod` |  |
+| `readableSourceType` |  |
+| `readableStatus` |  |
+| `readableType` |  |
+| `sourceType` |  |
 | `status` |  |
 | `type` |  |
 
@@ -282,12 +283,12 @@ Create an instance: `$address = $client->Address();`
 | --- | --- | --- |
 | `category` | `string` |  |
 | `method` | `string` |  |
-| `readable_category` | `string` |  |
-| `readable_method` | `string` |  |
-| `readable_source_type` | `string` |  |
-| `readable_status` | `string` |  |
-| `readable_type` | `string` |  |
-| `source_type` | `string` |  |
+| `readableCategory` | `string` |  |
+| `readableMethod` | `string` |  |
+| `readableSourceType` | `string` |  |
+| `readableStatus` | `string` |  |
+| `readableType` | `string` |  |
+| `sourceType` | `string` |  |
 | `status` | `string` |  |
 | `type` | `string` |  |
 

@@ -94,12 +94,12 @@ $address = $client->Address();
 | --- | --- | --- | --- |
 | `category` | `string` | Yes |  |
 | `method` | `string` | Yes |  |
-| `readable_category` | `string` | Yes |  |
-| `readable_method` | `string` | Yes |  |
-| `readable_source_type` | `string` | Yes |  |
-| `readable_status` | `string` | Yes |  |
-| `readable_type` | `string` | Yes |  |
-| `source_type` | `string` | Yes |  |
+| `readableCategory` | `string` | Yes |  |
+| `readableMethod` | `string` | Yes |  |
+| `readableSourceType` | `string` | Yes |  |
+| `readableStatus` | `string` | Yes |  |
+| `readableType` | `string` | Yes |  |
+| `sourceType` | `string` | Yes |  |
 | `status` | `string` | Yes |  |
 | `type` | `string` | Yes |  |
 

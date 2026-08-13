@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import CryptolabelControl
-from core.error import CryptolabelError
-from core.result import CryptolabelResult
-from core.spec import CryptolabelSpec
+from cryptolabel_sdk.config import make_config
+from cryptolabel_sdk.features import _make_feature
+from cryptolabel_sdk.core.control import CryptolabelControl
+from cryptolabel_sdk.core.error import CryptolabelError
+from cryptolabel_sdk.core.result import CryptolabelResult
+from cryptolabel_sdk.core.spec import CryptolabelSpec
 
 
 # True when this SDK was generated with the named feature.

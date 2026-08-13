@@ -17,12 +17,12 @@ class Address
 {
     public string $category;
     public string $method;
-    public string $readable_category;
-    public string $readable_method;
-    public string $readable_source_type;
-    public string $readable_status;
-    public string $readable_type;
-    public string $source_type;
+    public string $readableCategory;
+    public string $readableMethod;
+    public string $readableSourceType;
+    public string $readableStatus;
+    public string $readableType;
+    public string $sourceType;
     public string $status;
     public string $type;
 }

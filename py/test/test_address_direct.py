@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from cryptolabel_sdk.utility.voxgig_struct import voxgig_struct as vs
 from cryptolabel_sdk import CryptolabelSDK
-from core import helpers
+from cryptolabel_sdk.core import helpers
 from test import runner
 
 

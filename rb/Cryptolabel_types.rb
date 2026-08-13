@@ -16,22 +16,22 @@
 # @!attribute [rw] method
 #   @return [String]
 #
-# @!attribute [rw] readable_category
+# @!attribute [rw] readableCategory
 #   @return [String]
 #
-# @!attribute [rw] readable_method
+# @!attribute [rw] readableMethod
 #   @return [String]
 #
-# @!attribute [rw] readable_source_type
+# @!attribute [rw] readableSourceType
 #   @return [String]
 #
-# @!attribute [rw] readable_status
+# @!attribute [rw] readableStatus
 #   @return [String]
 #
-# @!attribute [rw] readable_type
+# @!attribute [rw] readableType
 #   @return [String]
 #
-# @!attribute [rw] source_type
+# @!attribute [rw] sourceType
 #   @return [String]
 #
 # @!attribute [rw] status
@@ -42,12 +42,12 @@
 Address = Struct.new(
   :category,
   :method,
-  :readable_category,
-  :readable_method,
-  :readable_source_type,
-  :readable_status,
-  :readable_type,
-  :source_type,
+  :readableCategory,
+  :readableMethod,
+  :readableSourceType,
+  :readableStatus,
+  :readableType,
+  :sourceType,
   :status,
   :type,
   keyword_init: true

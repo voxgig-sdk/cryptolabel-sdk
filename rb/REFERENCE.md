@@ -95,12 +95,12 @@ address = client.Address
 | --- | --- | --- | --- |
 | `category` | `String` | Yes |  |
 | `method` | `String` | Yes |  |
-| `readable_category` | `String` | Yes |  |
-| `readable_method` | `String` | Yes |  |
-| `readable_source_type` | `String` | Yes |  |
-| `readable_status` | `String` | Yes |  |
-| `readable_type` | `String` | Yes |  |
-| `source_type` | `String` | Yes |  |
+| `readableCategory` | `String` | Yes |  |
+| `readableMethod` | `String` | Yes |  |
+| `readableSourceType` | `String` | Yes |  |
+| `readableStatus` | `String` | Yes |  |
+| `readableType` | `String` | Yes |  |
+| `sourceType` | `String` | Yes |  |
 | `status` | `String` | Yes |  |
 | `type` | `String` | Yes |  |
 

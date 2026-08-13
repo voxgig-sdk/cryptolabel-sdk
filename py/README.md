@@ -43,7 +43,7 @@ error — iterate it directly.
 
 ```python
 try:
-    addresss = client.Address().list()
+    addresss = client.Address().list({"address": "example", "chain": "example"})
     for address in addresss:
         print(address)
 except Exception as err:
@@ -124,7 +124,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = CryptolabelSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 address = client.Address().list()
 # address contains the mock response record
 ```
@@ -220,7 +221,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -244,12 +245,12 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `category` |  |
 | `method` |  |
-| `readable_category` |  |
-| `readable_method` |  |
-| `readable_source_type` |  |
-| `readable_status` |  |
-| `readable_type` |  |
-| `source_type` |  |
+| `readableCategory` |  |
+| `readableMethod` |  |
+| `readableSourceType` |  |
+| `readableStatus` |  |
+| `readableType` |  |
+| `sourceType` |  |
 | `status` |  |
 | `type` |  |
 
@@ -278,19 +279,19 @@ Create an instance: `address = client.Address()`
 | --- | --- | --- |
 | `category` | `str` |  |
 | `method` | `str` |  |
-| `readable_category` | `str` |  |
-| `readable_method` | `str` |  |
-| `readable_source_type` | `str` |  |
-| `readable_status` | `str` |  |
-| `readable_type` | `str` |  |
-| `source_type` | `str` |  |
+| `readableCategory` | `str` |  |
+| `readableMethod` | `str` |  |
+| `readableSourceType` | `str` |  |
+| `readableStatus` | `str` |  |
+| `readableType` | `str` |  |
+| `sourceType` | `str` |  |
 | `status` | `str` |  |
 | `type` | `str` |  |
 
 #### Example: List
 
 ```python
-addresss = client.Address().list()
+addresss = client.Address().list({"address": "example", "chain": "example"})
 ```
 
 

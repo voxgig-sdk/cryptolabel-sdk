@@ -65,7 +65,7 @@ describe('AddressEntity', async () => {
     address_ref01_match['address'] = setup.idmap['address01']
     address_ref01_match['chain'] = setup.idmap['chain01']
 
-    const address_ref01_list = await address_ref01_ent.list(address_ref01_match)
+    const address_ref01_list = (await address_ref01_ent.list(address_ref01_match)).map((e: any) => e.data())
 
 
   })

@@ -89,12 +89,12 @@ address = client.Address()
 | --- | --- | --- | --- |
 | `category` | `str` | Yes |  |
 | `method` | `str` | Yes |  |
-| `readable_category` | `str` | Yes |  |
-| `readable_method` | `str` | Yes |  |
-| `readable_source_type` | `str` | Yes |  |
-| `readable_status` | `str` | Yes |  |
-| `readable_type` | `str` | Yes |  |
-| `source_type` | `str` | Yes |  |
+| `readableCategory` | `str` | Yes |  |
+| `readableMethod` | `str` | Yes |  |
+| `readableSourceType` | `str` | Yes |  |
+| `readableStatus` | `str` | Yes |  |
+| `readableType` | `str` | Yes |  |
+| `sourceType` | `str` | Yes |  |
 | `status` | `str` | Yes |  |
 | `type` | `str` | Yes |  |
 
@@ -105,7 +105,7 @@ address = client.Address()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Address().list()
+results = client.Address().list({"address": "example", "chain": "example"})
 for address in results:
     print(address)
 ```

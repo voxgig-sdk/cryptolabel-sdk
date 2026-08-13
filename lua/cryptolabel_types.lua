@@ -9,12 +9,12 @@
 ---@class Address
 ---@field category string
 ---@field method string
----@field readable_category string
----@field readable_method string
----@field readable_source_type string
----@field readable_status string
----@field readable_type string
----@field source_type string
+---@field readableCategory string
+---@field readableMethod string
+---@field readableSourceType string
+---@field readableStatus string
+---@field readableType string
+---@field sourceType string
 ---@field status string
 ---@field type string
 

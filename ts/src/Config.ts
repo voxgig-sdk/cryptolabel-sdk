@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Cryptolabel',
   }
 
 
@@ -70,42 +70,42 @@ class Config {
         },
         {
           "active": true,
-          "name": "readable_category",
+          "name": "readableCategory",
           "req": true,
           "type": "`$STRING`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "readable_method",
+          "name": "readableMethod",
           "req": true,
           "type": "`$STRING`",
           "index$": 3
         },
         {
           "active": true,
-          "name": "readable_source_type",
+          "name": "readableSourceType",
           "req": true,
           "type": "`$STRING`",
           "index$": 4
         },
         {
           "active": true,
-          "name": "readable_status",
+          "name": "readableStatus",
           "req": true,
           "type": "`$STRING`",
           "index$": 5
         },
         {
           "active": true,
-          "name": "readable_type",
+          "name": "readableType",
           "req": true,
           "type": "`$STRING`",
           "index$": 6
         },
         {
           "active": true,
-          "name": "source_type",
+          "name": "sourceType",
           "req": true,
           "type": "`$STRING`",
           "index$": 7
@@ -174,6 +174,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/address/{chain}/{address}",
               "parts": [

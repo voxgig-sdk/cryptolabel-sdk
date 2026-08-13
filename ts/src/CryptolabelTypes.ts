@@ -8,12 +8,12 @@
 export interface Address {
   category: string
   method: string
-  readable_category: string
-  readable_method: string
-  readable_source_type: string
-  readable_status: string
-  readable_type: string
-  source_type: string
+  readableCategory: string
+  readableMethod: string
+  readableSourceType: string
+  readableStatus: string
+  readableType: string
+  sourceType: string
   status: string
   type: string
 }

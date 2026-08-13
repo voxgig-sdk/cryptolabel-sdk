@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Cryptolabel SDK exists test
 
 import pytest
 from cryptolabel_sdk import CryptolabelSDK
