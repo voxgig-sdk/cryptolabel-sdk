@@ -7,18 +7,12 @@
 -- edit by hand.
 
 ---@class Address
----@field category string
----@field method string
----@field readableCategory string
----@field readableMethod string
----@field readableSourceType string
----@field readableStatus string
----@field readableType string
----@field sourceType string
----@field status string
----@field type string
+---@field address table
+---@field entity table
+---@field labels table
+---@field query table
 
----@class AddressListMatch
+---@class AddressLoadMatch
 ---@field address string
 ---@field chain string
 

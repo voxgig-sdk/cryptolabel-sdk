@@ -116,25 +116,19 @@ const address = client.Address()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `string` | Yes |  |
-| `method` | `string` | Yes |  |
-| `readableCategory` | `string` | Yes |  |
-| `readableMethod` | `string` | Yes |  |
-| `readableSourceType` | `string` | Yes |  |
-| `readableStatus` | `string` | Yes |  |
-| `readableType` | `string` | Yes |  |
-| `sourceType` | `string` | Yes |  |
-| `status` | `string` | Yes |  |
-| `type` | `string` | Yes |  |
+| `address` | `Record<string, any>` | Yes |  |
+| `entity` | `Record<string, any>` | Yes |  |
+| `labels` | `any[]` | Yes |  |
+| `query` | `Record<string, any>` | Yes |  |
 
 ### Operations
 
-#### `list(match: object, ctrl?: object)`
+#### `load(match: object, ctrl?: object)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```ts
-const results = await client.Address().list({ address: "example", chain: "example" })
+const result = await client.Address().load({ address: 'address', chain: 'chain' })
 ```
 
 ### Common Methods

@@ -6,61 +6,31 @@ main: kit: entity: address: {
 
   fields: [
     {
-      name: "category"
+      name: "address"
       req: true
-      type: "`$STRING`"
+      type: "`$OBJECT`"
     }
     {
-      name: "method"
+      name: "entity"
       req: true
-      type: "`$STRING`"
+      type: "`$OBJECT`"
     }
     {
-      name: "readableCategory"
+      name: "labels"
       req: true
-      type: "`$STRING`"
+      type: "`$ARRAY`"
     }
     {
-      name: "readableMethod"
+      name: "query"
       req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "readableSourceType"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "readableStatus"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "readableType"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "sourceType"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "status"
-      req: true
-      type: "`$STRING`"
-    }
-    {
-      name: "type"
-      req: true
-      type: "`$STRING`"
+      type: "`$OBJECT`"
     }
   ]
 
   name: "address"
   op: {
-    list: {
-      name: "list"
+    load: {
+      name: "load"
       points: [
         {
           args: {

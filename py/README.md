@@ -5,7 +5,7 @@
 The Python SDK for the Cryptolabel API — an entity-oriented client following Pythonic conventions.
 
 The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Address()` — each
-carrying a small, uniform set of operations (`list`) instead of raw URL
+carrying a small, uniform set of operations (`load`) instead of raw URL
 paths and query strings. You work with named resources and verbs, which
 keeps the cognitive load low.
 
@@ -36,18 +36,17 @@ from cryptolabel_sdk import CryptolabelSDK
 client = CryptolabelSDK()
 ```
 
-### 2. List address records
+### 3. Load an address
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
+Address is nested under address, so provide the `address`.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    addresss = client.Address().list({"address": "example", "chain": "example"})
-    for address in addresss:
-        print(address)
+    address = client.Address().load({"address": "example_address", "chain": "example_chain"})
+    print(address)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 
@@ -57,10 +56,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    addresss = client.Address().list()
-    print(addresss)
+    address = client.Address().load({"address": "example", "chain": "example"})
+    print(address)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -126,7 +125,7 @@ client = CryptolabelSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-address = client.Address().list()
+address = client.Address().load({"address": "example", "chain": "example"})
 # address contains the mock response record
 ```
 
@@ -211,7 +210,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -243,18 +242,12 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `category` |  |
-| `method` |  |
-| `readableCategory` |  |
-| `readableMethod` |  |
-| `readableSourceType` |  |
-| `readableStatus` |  |
-| `readableType` |  |
-| `sourceType` |  |
-| `status` |  |
-| `type` |  |
+| `address` |  |
+| `entity` |  |
+| `labels` |  |
+| `query` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/address/{chain}/{address}`
 
@@ -271,27 +264,21 @@ Create an instance: `address = client.Address()`
 
 | Method | Description |
 | --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | `str` |  |
-| `method` | `str` |  |
-| `readableCategory` | `str` |  |
-| `readableMethod` | `str` |  |
-| `readableSourceType` | `str` |  |
-| `readableStatus` | `str` |  |
-| `readableType` | `str` |  |
-| `sourceType` | `str` |  |
-| `status` | `str` |  |
-| `type` | `str` |  |
+| `address` | `dict` |  |
+| `entity` | `dict` |  |
+| `labels` | `list` |  |
+| `query` | `dict` |  |
 
-#### Example: List
+#### Example: Load
 
 ```python
-addresss = client.Address().list({"address": "example", "chain": "example"})
+address = client.Address().load({"address": "address", "chain": "chain"})
 ```
 
 
@@ -366,14 +353,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 address = client.Address()
-address.list()
+address.load({"address": "example", "chain": "example"})
 
-# address.data_get() now returns the address data from the last list
+# address.data_get() now returns the address data from the last load
 # address.match_get() returns the last match criteria
 ```
 

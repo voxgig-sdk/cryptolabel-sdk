@@ -14,20 +14,14 @@ import (
 
 // Address is the typed data model for the address entity.
 type Address struct {
-	Category string `json:"category"`
-	Method string `json:"method"`
-	ReadableCategory string `json:"readableCategory"`
-	ReadableMethod string `json:"readableMethod"`
-	ReadableSourceType string `json:"readableSourceType"`
-	ReadableStatus string `json:"readableStatus"`
-	ReadableType string `json:"readableType"`
-	SourceType string `json:"sourceType"`
-	Status string `json:"status"`
-	Type string `json:"type"`
+	Address map[string]any `json:"address"`
+	Entity map[string]any `json:"entity"`
+	Labels []any `json:"labels"`
+	Query map[string]any `json:"query"`
 }
 
-// AddressListMatch is the typed request payload for Address.ListTyped.
-type AddressListMatch struct {
+// AddressLoadMatch is the typed request payload for Address.LoadTyped.
+type AddressLoadMatch struct {
 	Address string `json:"address"`
 	Chain string `json:"chain"`
 }

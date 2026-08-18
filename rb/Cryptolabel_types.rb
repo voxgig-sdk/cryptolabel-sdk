@@ -10,57 +10,33 @@
 
 # Address entity data model.
 #
-# @!attribute [rw] category
-#   @return [String]
+# @!attribute [rw] address
+#   @return [Hash]
 #
-# @!attribute [rw] method
-#   @return [String]
+# @!attribute [rw] entity
+#   @return [Hash]
 #
-# @!attribute [rw] readableCategory
-#   @return [String]
+# @!attribute [rw] labels
+#   @return [Array]
 #
-# @!attribute [rw] readableMethod
-#   @return [String]
-#
-# @!attribute [rw] readableSourceType
-#   @return [String]
-#
-# @!attribute [rw] readableStatus
-#   @return [String]
-#
-# @!attribute [rw] readableType
-#   @return [String]
-#
-# @!attribute [rw] sourceType
-#   @return [String]
-#
-# @!attribute [rw] status
-#   @return [String]
-#
-# @!attribute [rw] type
-#   @return [String]
+# @!attribute [rw] query
+#   @return [Hash]
 Address = Struct.new(
-  :category,
-  :method,
-  :readableCategory,
-  :readableMethod,
-  :readableSourceType,
-  :readableStatus,
-  :readableType,
-  :sourceType,
-  :status,
-  :type,
+  :address,
+  :entity,
+  :labels,
+  :query,
   keyword_init: true
 )
 
-# Request payload for Address#list.
+# Request payload for Address#load.
 #
 # @!attribute [rw] address
 #   @return [String]
 #
 # @!attribute [rw] chain
 #   @return [String]
-AddressListMatch = Struct.new(
+AddressLoadMatch = Struct.new(
   :address,
   :chain,
   keyword_init: true

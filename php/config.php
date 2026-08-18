@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class CryptolabelConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -31,122 +54,63 @@ class CryptolabelConfig
         'address' => [
           'fields' => [
             [
-              'active' => true,
-              'name' => 'category',
+              'name' => 'address',
               'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 0,
+              'type' => '`$OBJECT`',
             ],
             [
-              'active' => true,
-              'name' => 'method',
+              'name' => 'entity',
               'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 1,
+              'type' => '`$OBJECT`',
             ],
             [
-              'active' => true,
-              'name' => 'readableCategory',
+              'name' => 'labels',
               'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 2,
+              'type' => '`$ARRAY`',
             ],
             [
-              'active' => true,
-              'name' => 'readableMethod',
+              'name' => 'query',
               'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 3,
-            ],
-            [
-              'active' => true,
-              'name' => 'readableSourceType',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 4,
-            ],
-            [
-              'active' => true,
-              'name' => 'readableStatus',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 5,
-            ],
-            [
-              'active' => true,
-              'name' => 'readableType',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 6,
-            ],
-            [
-              'active' => true,
-              'name' => 'sourceType',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 7,
-            ],
-            [
-              'active' => true,
-              'name' => 'status',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 8,
-            ],
-            [
-              'active' => true,
-              'name' => 'type',
-              'req' => true,
-              'type' => '`$STRING`',
-              'index$' => 9,
+              'type' => '`$OBJECT`',
             ],
           ],
           'name' => 'address',
           'op' => [
-            'list' => [
+            'load' => [
               'input' => 'data',
-              'name' => 'list',
+              'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'header' => [
                       [
-                        'active' => true,
                         'example' => 'application/json',
                         'kind' => 'header',
                         'name' => 'accept',
                         'orig' => 'accept',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'header',
                         'name' => 'user_agent',
                         'orig' => 'user_agent',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'address',
                         'orig' => 'address',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'chain',
                         'orig' => 'chain',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 1,
                       ],
                     ],
                   ],
@@ -170,10 +134,8 @@ class CryptolabelConfig
                     'req' => '`reqdata`',
                     'res' => '`body.address`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [

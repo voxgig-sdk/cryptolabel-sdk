@@ -1,7 +1,30 @@
 # Cryptolabel SDK configuration
 
 
+_shared_config = None
+
+
+def shared_config():
+    """Return the process-wide config, built once on first use.
+
+    The SDK reads the config on every request and never writes to it, so one
+    instance is shared by every client rather than rebuilt per client.
+
+    The returned dict is shared: treat it as read-only. Callers that need to
+    mutate should use make_config, which always returns a fresh copy.
+    """
+    global _shared_config
+    if _shared_config is None:
+        _shared_config = make_config()
+    return _shared_config
+
+
 def make_config():
+    """Build a fresh, fully materialised config dict.
+
+    Every call rebuilds the whole structure, so prefer shared_config unless
+    you need a private copy you intend to mutate.
+    """
     return {
         "main": {
             "name": "Cryptolabel",
@@ -26,122 +49,63 @@ def make_config():
       "address": {
         "fields": [
           {
-            "active": True,
-            "name": "category",
+            "name": "address",
             "req": True,
-            "type": "`$STRING`",
-            "index$": 0,
+            "type": "`$OBJECT`",
           },
           {
-            "active": True,
-            "name": "method",
+            "name": "entity",
             "req": True,
-            "type": "`$STRING`",
-            "index$": 1,
+            "type": "`$OBJECT`",
           },
           {
-            "active": True,
-            "name": "readableCategory",
+            "name": "labels",
             "req": True,
-            "type": "`$STRING`",
-            "index$": 2,
+            "type": "`$ARRAY`",
           },
           {
-            "active": True,
-            "name": "readableMethod",
+            "name": "query",
             "req": True,
-            "type": "`$STRING`",
-            "index$": 3,
-          },
-          {
-            "active": True,
-            "name": "readableSourceType",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 4,
-          },
-          {
-            "active": True,
-            "name": "readableStatus",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 5,
-          },
-          {
-            "active": True,
-            "name": "readableType",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 6,
-          },
-          {
-            "active": True,
-            "name": "sourceType",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 7,
-          },
-          {
-            "active": True,
-            "name": "status",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 8,
-          },
-          {
-            "active": True,
-            "name": "type",
-            "req": True,
-            "type": "`$STRING`",
-            "index$": 9,
+            "type": "`$OBJECT`",
           },
         ],
         "name": "address",
         "op": {
-          "list": {
+          "load": {
             "input": "data",
-            "name": "list",
+            "name": "load",
             "points": [
               {
-                "active": True,
                 "args": {
                   "header": [
                     {
-                      "active": True,
                       "example": "application/json",
                       "kind": "header",
                       "name": "accept",
                       "orig": "accept",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                     {
-                      "active": True,
                       "kind": "header",
                       "name": "user_agent",
                       "orig": "user_agent",
-                      "reqd": False,
                       "type": "`$STRING`",
                     },
                   ],
                   "params": [
                     {
-                      "active": True,
                       "kind": "param",
                       "name": "address",
                       "orig": "address",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "index$": 0,
                     },
                     {
-                      "active": True,
                       "kind": "param",
                       "name": "chain",
                       "orig": "chain",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "index$": 1,
                     },
                   ],
                 },
@@ -165,10 +129,8 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.address`",
                 },
-                "index$": 0,
               },
             ],
-            "key$": "list",
           },
         },
         "relations": {

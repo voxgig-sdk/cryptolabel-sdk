@@ -1,6 +1,20 @@
 # Cryptolabel SDK configuration
 
 module CryptolabelConfig
+  # Return the process-wide config, built once on first use. The SDK reads
+  # the config on every request and never writes to it, so one instance is
+  # shared by every client rather than rebuilt per client.
+  #
+  # The returned hash is shared: treat it as read-only. Callers that need to
+  # mutate should use make_config, which always returns a fresh copy.
+  def self.shared_config
+    @shared_config ||= make_config
+  end
+
+
+  # Build a fresh, fully materialised config hash. Every call rebuilds the
+  # whole structure, so prefer shared_config unless you need a private copy
+  # you intend to mutate.
   def self.make_config
     {
       "main" => {
@@ -26,122 +40,63 @@ module CryptolabelConfig
         "address" => {
           "fields" => [
             {
-              "active" => true,
-              "name" => "category",
+              "name" => "address",
               "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 0,
+              "type" => "`$OBJECT`",
             },
             {
-              "active" => true,
-              "name" => "method",
+              "name" => "entity",
               "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 1,
+              "type" => "`$OBJECT`",
             },
             {
-              "active" => true,
-              "name" => "readableCategory",
+              "name" => "labels",
               "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 2,
+              "type" => "`$ARRAY`",
             },
             {
-              "active" => true,
-              "name" => "readableMethod",
+              "name" => "query",
               "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 3,
-            },
-            {
-              "active" => true,
-              "name" => "readableSourceType",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 4,
-            },
-            {
-              "active" => true,
-              "name" => "readableStatus",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 5,
-            },
-            {
-              "active" => true,
-              "name" => "readableType",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 6,
-            },
-            {
-              "active" => true,
-              "name" => "sourceType",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 7,
-            },
-            {
-              "active" => true,
-              "name" => "status",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 8,
-            },
-            {
-              "active" => true,
-              "name" => "type",
-              "req" => true,
-              "type" => "`$STRING`",
-              "index$" => 9,
+              "type" => "`$OBJECT`",
             },
           ],
           "name" => "address",
           "op" => {
-            "list" => {
+            "load" => {
               "input" => "data",
-              "name" => "list",
+              "name" => "load",
               "points" => [
                 {
-                  "active" => true,
                   "args" => {
                     "header" => [
                       {
-                        "active" => true,
                         "example" => "application/json",
                         "kind" => "header",
                         "name" => "accept",
                         "orig" => "accept",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                       {
-                        "active" => true,
                         "kind" => "header",
                         "name" => "user_agent",
                         "orig" => "user_agent",
-                        "reqd" => false,
                         "type" => "`$STRING`",
                       },
                     ],
                     "params" => [
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "address",
                         "orig" => "address",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 0,
                       },
                       {
-                        "active" => true,
                         "kind" => "param",
                         "name" => "chain",
                         "orig" => "chain",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "index$" => 1,
                       },
                     ],
                   },
@@ -165,10 +120,8 @@ module CryptolabelConfig
                     "req" => "`reqdata`",
                     "res" => "`body.address`",
                   },
-                  "index$" => 0,
                 },
               ],
-              "key$" => "list",
             },
           },
           "relations" => {

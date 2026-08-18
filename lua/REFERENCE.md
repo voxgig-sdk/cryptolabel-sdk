@@ -90,25 +90,19 @@ local address = client:Address(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `string` | Yes |  |
-| `method` | `string` | Yes |  |
-| `readableCategory` | `string` | Yes |  |
-| `readableMethod` | `string` | Yes |  |
-| `readableSourceType` | `string` | Yes |  |
-| `readableStatus` | `string` | Yes |  |
-| `readableType` | `string` | Yes |  |
-| `sourceType` | `string` | Yes |  |
-| `status` | `string` | Yes |  |
-| `type` | `string` | Yes |  |
+| `address` | `table` | Yes |  |
+| `entity` | `table` | Yes |  |
+| `labels` | `table` | Yes |  |
+| `query` | `table` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl) -> any, err`
+#### `load(reqmatch, ctrl) -> any, err`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```lua
-local results, err = client:Address():list()
+local result, err = client:Address():load({ address = "address", chain = "chain" })
 ```
 
 ### Common Methods

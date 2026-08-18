@@ -87,27 +87,19 @@ address = client.Address()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `str` | Yes |  |
-| `method` | `str` | Yes |  |
-| `readableCategory` | `str` | Yes |  |
-| `readableMethod` | `str` | Yes |  |
-| `readableSourceType` | `str` | Yes |  |
-| `readableStatus` | `str` | Yes |  |
-| `readableType` | `str` | Yes |  |
-| `sourceType` | `str` | Yes |  |
-| `status` | `str` | Yes |  |
-| `type` | `str` | Yes |  |
+| `address` | `dict` | Yes |  |
+| `entity` | `dict` | Yes |  |
+| `labels` | `list` | Yes |  |
+| `query` | `dict` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch=None, ctrl=None) -> list`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-results = client.Address().list({"address": "example", "chain": "example"})
-for address in results:
-    print(address)
+result = client.Address().load({"address": "address", "chain": "chain"})
 ```
 
 ### Common Methods

@@ -4,7 +4,7 @@
 
 The Ruby SDK for the Cryptolabel API — an entity-oriented client using idiomatic Ruby conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Address` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Address` — with named operations (`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -30,17 +30,17 @@ require_relative "Cryptolabel_sdk"
 client = CryptolabelSDK.new
 ```
 
-### 2. List address records
+### 3. Load an address
+
+Address is nested under address, so provide the `address`.
 
 ```ruby
 begin
-  # list returns an Array of Address records — iterate directly.
-  addresss = client.Address.list
-  addresss.each do |item|
-    puts "#{item["category"]}"
-  end
+  # load returns the ENTITY — call data_get for the Address record (raises on error).
+  address = client.Address.load({ "address" => "example_address", "chain" => "example_chain" })
+  puts address
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -51,9 +51,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  addresss = client.Address.list()
+  address = client.Address.load({ "address" => "example", "chain" => "example" })
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -121,7 +121,7 @@ client = CryptolabelSDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-address = client.Address.list()
+address = client.Address.load({ "address" => "example", "chain" => "example" })
 puts address
 ```
 
@@ -206,7 +206,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch = nil, ctrl) -> Array` | List entities matching the criteria (call with no argument to list all). Raises on error. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -237,18 +237,12 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `category` |  |
-| `method` |  |
-| `readableCategory` |  |
-| `readableMethod` |  |
-| `readableSourceType` |  |
-| `readableStatus` |  |
-| `readableType` |  |
-| `sourceType` |  |
-| `status` |  |
-| `type` |  |
+| `address` |  |
+| `entity` |  |
+| `labels` |  |
+| `query` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/address/{chain}/{address}`
 
@@ -265,28 +259,22 @@ Create an instance: `address = client.Address`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | `String` |  |
-| `method` | `String` |  |
-| `readableCategory` | `String` |  |
-| `readableMethod` | `String` |  |
-| `readableSourceType` | `String` |  |
-| `readableStatus` | `String` |  |
-| `readableType` | `String` |  |
-| `sourceType` | `String` |  |
-| `status` | `String` |  |
-| `type` | `String` |  |
+| `address` | `Hash` |  |
+| `entity` | `Hash` |  |
+| `labels` | `Array` |  |
+| `query` | `Hash` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ruby
-# list returns an Array of Address records (raises on error).
-addresss = client.Address.list
+# load returns the ENTITY — call data_get for the Address record (raises on error).
+address = client.Address.load({ "address" => "address", "chain" => "chain" })
 ```
 
 
@@ -362,14 +350,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
 address = client.Address
-address.list()
+address.load({ "address" => "example", "chain" => "example" })
 
-# address.data_get now returns the address data from the last list
+# address.data_get now returns the address data from the last load
 # address.match_get returns the last match criteria
 ```
 

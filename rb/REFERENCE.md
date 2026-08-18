@@ -93,25 +93,19 @@ address = client.Address
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `String` | Yes |  |
-| `method` | `String` | Yes |  |
-| `readableCategory` | `String` | Yes |  |
-| `readableMethod` | `String` | Yes |  |
-| `readableSourceType` | `String` | Yes |  |
-| `readableStatus` | `String` | Yes |  |
-| `readableType` | `String` | Yes |  |
-| `sourceType` | `String` | Yes |  |
-| `status` | `String` | Yes |  |
-| `type` | `String` | Yes |  |
+| `address` | `Hash` | Yes |  |
+| `entity` | `Hash` | Yes |  |
+| `labels` | `Array` | Yes |  |
+| `query` | `Hash` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch = nil, ctrl = nil) -> Array`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-results = client.Address.list
+result = client.Address.load({ "address" => "address", "chain" => "chain" })
 ```
 
 ### Common Methods

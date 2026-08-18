@@ -7,17 +7,23 @@ main: kit: flow: BasicAddressFlow:
   name: "BasicAddressFlow",
   step: [
     {
-      match: {
-        address: "address01",
-        chain: "chain01"
+      input: {
+        ref: "address_ref01",
+        srcdatavar: "address_ref01_data",
+        suffix: "_dt0"
       }
 
-      op: "list",
+      match: {
+        chain: "chain01",
+        id: "address01"
+      }
+
+      op: "load",
       valid: [
         {
-          apply: "ItemExists",
+          apply: "TextFieldMark",
           def: {
-            ref: "address_ref01"
+            mark: "Mark01-address_ref01"
           }
         }
       ]

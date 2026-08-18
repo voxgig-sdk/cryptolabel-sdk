@@ -4,7 +4,7 @@
 
 The Lua SDK for the Cryptolabel API — an entity-oriented client using Lua conventions.
 
-It exposes the API as capitalised, semantic **Entities** — e.g. `client:Address()` — each with the same small set of operations (`list`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Address()` — each with the same small set of operations (`load`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -33,18 +33,14 @@ local sdk = require("cryptolabel_sdk")
 local client = sdk.new()
 ```
 
-### 2. List address records
+### 3. Load an address
 
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+Address is nested under address, so provide the `address`.
 
 ```lua
-local addresss, err = client:Address():list()
+local address, err = client:Address():load({ address = "example_address", chain = "example_chain" })
 if err then error(err) end
-
-for _, item in ipairs(addresss) do
-  print(item["category"])
-end
+print(address)
 ```
 
 
@@ -54,7 +50,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local addresss, err = client:Address():list()
+local address, err = client:Address():load({ address = "example", chain = "example" })
 if err then error(err) end
 ```
 
@@ -112,7 +108,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Address():list()
+local result, err = client:Address():load({ address = "example", chain = "example" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -199,7 +195,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(reqmatch, ctrl) -> any, err` | List entities matching the criteria. |
+| `load` | `(reqmatch, ctrl) -> any, err` | Load a single entity by match criteria. |
 | `data_get` | `() -> table` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> table` | Get entity match criteria. |
@@ -214,13 +210,13 @@ data **directly** — there is no wrapper:
 
 | Operation | `value` |
 | --- | --- |
-| `list` | an array (`table`) of entity records |
+| `load` | the entity record (a `table`) |
 
 Check `err` first (it is non-`nil` on failure), then use `value`:
 
-    local address, err = client:Address():list()
+    local address, err = client:Address():load()
     if err then error(err) end
-    -- address is the record list
+    -- address is the loaded record
 
 Only `direct()` returns a response envelope — a `table` with `ok`,
 `status`, `headers`, and `data` keys.
@@ -231,18 +227,12 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `category` |  |
-| `method` |  |
-| `readableCategory` |  |
-| `readableMethod` |  |
-| `readableSourceType` |  |
-| `readableStatus` |  |
-| `readableType` |  |
-| `sourceType` |  |
-| `status` |  |
-| `type` |  |
+| `address` |  |
+| `entity` |  |
+| `labels` |  |
+| `query` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/address/{chain}/{address}`
 
@@ -259,27 +249,21 @@ Create an instance: `local address = client:Address(nil)`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | `string` |  |
-| `method` | `string` |  |
-| `readableCategory` | `string` |  |
-| `readableMethod` | `string` |  |
-| `readableSourceType` | `string` |  |
-| `readableStatus` | `string` |  |
-| `readableType` | `string` |  |
-| `sourceType` | `string` |  |
-| `status` | `string` |  |
-| `type` | `string` |  |
+| `address` | `table` |  |
+| `entity` | `table` |  |
+| `labels` | `table` |  |
+| `query` | `table` |  |
 
-#### Example: List
+#### Example: Load
 
 ```lua
-local addresss, err = client:Address():list()
+local address, err = client:Address():load({ address = "address", chain = "chain" })
 ```
 
 
@@ -355,14 +339,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local address = client:Address()
-address:list()
+address:load({ address = "example", chain = "example" })
 
--- address:data_get() now returns the address data from the last list
+-- address:data_get() now returns the address data from the last load
 -- address:match_get() returns the last match criteria
 ```
 

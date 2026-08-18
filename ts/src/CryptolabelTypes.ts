@@ -6,19 +6,13 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Address {
-  category: string
-  method: string
-  readableCategory: string
-  readableMethod: string
-  readableSourceType: string
-  readableStatus: string
-  readableType: string
-  sourceType: string
-  status: string
-  type: string
+  address: Record<string, any>
+  entity: Record<string, any>
+  labels: any[]
+  query: Record<string, any>
 }
 
-export interface AddressListMatch {
+export interface AddressLoadMatch {
   address: string
   chain: string
 }

@@ -23,7 +23,7 @@ func NewCryptolabelSDK(options map[string]any) *CryptolabelSDK {
 
 	sdk.utility = NewUtility()
 
-	config := MakeConfig()
+	config := SharedConfig()
 
 	sdk.rootctx = sdk.utility.MakeContext(map[string]any{
 		"client":  sdk,

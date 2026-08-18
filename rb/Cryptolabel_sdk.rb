@@ -28,7 +28,7 @@ class CryptolabelSDK
     utility = CryptolabelUtility.new
     @_utility = utility
 
-    config = CryptolabelConfig.make_config
+    config = CryptolabelConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

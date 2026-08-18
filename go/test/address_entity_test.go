@@ -24,54 +24,6 @@ func TestAddressEntity(t *testing.T) {
 		}
 	})
 
-	// Feature #4: the entity Stream(action, ...) method runs the op pipeline and
-	// returns a channel over result items. With the streaming feature active it
-	// yields the feature's incremental output; otherwise it falls back to the
-	// materialised list so Stream always yields.
-	t.Run("stream", func(t *testing.T) {
-		seed := map[string]any{
-			"entity": map[string]any{
-				"address": map[string]any{
-					"s1": map[string]any{"id": "s1"},
-					"s2": map[string]any{"id": "s2"},
-					"s3": map[string]any{"id": "s3"},
-				},
-			},
-		}
-
-		// Fallback: streaming inactive -> yields the materialised list items.
-		base := sdk.TestSDK(seed, nil)
-		var seen []any
-		for item := range base.Address(nil).Stream("list", nil, nil) {
-			seen = append(seen, item)
-		}
-		if len(seen) != 3 {
-			t.Fatalf("expected 3 streamed items, got %d", len(seen))
-		}
-
-		// Inbound: streaming active -> yields each item from the feature iterator.
-		hasStreaming := false
-		if fm, ok := core.MakeConfig()["feature"].(map[string]any); ok {
-			_, hasStreaming = fm["streaming"]
-		}
-		if hasStreaming {
-			streamSdk := sdk.TestSDK(seed, map[string]any{
-				"feature": map[string]any{"streaming": map[string]any{"active": true}},
-			})
-			var got []any
-			for item := range streamSdk.Address(nil).Stream("list", nil, nil) {
-				if sub, ok := item.([]any); ok {
-					got = append(got, sub...)
-				} else {
-					got = append(got, item)
-				}
-			}
-			if len(got) != 3 {
-				t.Fatalf("expected 3 items via streaming feature, got %d", len(got))
-			}
-		}
-	})
-
 	t.Run("basic", func(t *testing.T) {
 		setup := addressBasicSetup(nil)
 		// Per-op sdk-test-control.json skip — basic test exercises a flow
@@ -80,7 +32,7 @@ func TestAddressEntity(t *testing.T) {
 		if setup.live {
 			_mode = "live"
 		}
-		for _, _op := range []string{"list"} {
+		for _, _op := range []string{"load"} {
 			if _shouldSkip, _reason := isControlSkipped("entityOp", "address." + _op, _mode); _shouldSkip {
 				if _reason == "" {
 					_reason = "skipped via sdk-test-control.json"
@@ -107,20 +59,15 @@ func TestAddressEntity(t *testing.T) {
 		// happen not to consume the bootstrap data (e.g. list-only flows).
 		_ = addressRef01Data
 
-		// LIST
+		// LOAD
 		addressRef01Ent := client.Address(nil)
-		addressRef01Match := map[string]any{
-			"address": setup.idmap["address01"],
-			"chain": setup.idmap["chain01"],
-		}
-
-		addressRef01ListResult, err := addressRef01Ent.List(addressRef01Match, nil)
+		addressRef01MatchDt0 := map[string]any{}
+		addressRef01DataDt0Loaded, err := addressRef01Ent.Load(addressRef01MatchDt0, nil)
 		if err != nil {
-			t.Fatalf("list failed: %v", err)
+			t.Fatalf("load failed: %v", err)
 		}
-		_, addressRef01ListOk := addressRef01ListResult.([]any)
-		if !addressRef01ListOk {
-			t.Fatalf("expected list result to be an array, got %T", addressRef01ListResult)
+		if addressRef01DataDt0Loaded == nil {
+			t.Fatal("expected load result to be non-nil")
 		}
 
 	})

@@ -15,52 +15,11 @@ describe("AddressEntity", function()
     assert.is_not_nil(ent)
   end)
 
-  -- Feature #4: the entity stream(action, ...) method runs the op pipeline and
-  -- returns an iterator over result items. With the streaming feature active it
-  -- yields the feature's incremental output; otherwise it falls back to the
-  -- materialised list so stream always yields.
-  it("should stream", function()
-    local seed = {
-      entity = {
-        ["address"] = {
-          s1 = { id = "s1" },
-          s2 = { id = "s2" },
-          s3 = { id = "s3" },
-        },
-      },
-    }
-
-    -- Fallback: streaming inactive -> yields the materialised list items.
-    local base = sdk.test(seed, nil)
-    local seen = {}
-    for item in base:Address(nil):stream("list", nil, nil) do
-      table.insert(seen, item)
-    end
-    assert.are.equal(3, #seen)
-
-    -- Inbound: streaming active -> yields each item from the feature.
-    local config = require("config")()
-    if type(config.feature) == "table" and config.feature.streaming ~= nil then
-      local streamsdk = sdk.test(seed, { feature = { streaming = { active = true } } })
-      local got = {}
-      for item in streamsdk:Address(nil):stream("list", nil, nil) do
-        if vs.islist(item) then
-          for _, sub in ipairs(item) do
-            table.insert(got, sub)
-          end
-        else
-          table.insert(got, item)
-        end
-      end
-      assert.are.equal(3, #got)
-    end
-  end)
-
   it("should run basic flow", function()
     local setup = address_basic_setup(nil)
     -- Per-op sdk-test-control.json skip.
     local _live = setup.live or false
-    for _, _op in ipairs({"list"}) do
+    for _, _op in ipairs({"load"}) do
       local _should_skip, _reason = runner.is_control_skipped("entityOp", "address." .. _op, _live and "live" or "unit")
       if _should_skip then
         pending(_reason or "skipped via sdk-test-control.json")
@@ -83,16 +42,12 @@ describe("AddressEntity", function()
       address_ref01_data = helpers.to_map(address_ref01_data_raw[1][2])
     end
 
-    -- LIST
+    -- LOAD
     local address_ref01_ent = client:Address(nil)
-    local address_ref01_match = {
-      ["address"] = setup.idmap["address01"],
-      ["chain"] = setup.idmap["chain01"],
-    }
-
-    local address_ref01_list_result, err = address_ref01_ent:list(address_ref01_match, nil)
+    local address_ref01_match_dt0 = {}
+    local address_ref01_data_dt0_loaded, err = address_ref01_ent:load(address_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_table(address_ref01_list_result)
+    assert.is_not_nil(address_ref01_data_dt0_loaded)
 
   end)
 end)

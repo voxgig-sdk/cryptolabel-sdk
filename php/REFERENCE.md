@@ -92,25 +92,19 @@ $address = $client->Address();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `string` | Yes |  |
-| `method` | `string` | Yes |  |
-| `readableCategory` | `string` | Yes |  |
-| `readableMethod` | `string` | Yes |  |
-| `readableSourceType` | `string` | Yes |  |
-| `readableStatus` | `string` | Yes |  |
-| `readableType` | `string` | Yes |  |
-| `sourceType` | `string` | Yes |  |
-| `status` | `string` | Yes |  |
-| `type` | `string` | Yes |  |
+| `address` | `array` | Yes |  |
+| `entity` | `array` | Yes |  |
+| `labels` | `array` | Yes |  |
+| `query` | `array` | Yes |  |
 
 ### Operations
 
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$results = $client->Address()->list();
+$result = $client->Address()->load(["address" => "address", "chain" => "chain"]);
 ```
 
 ### Common Methods

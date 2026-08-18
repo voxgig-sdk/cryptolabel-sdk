@@ -19,14 +19,15 @@ make build
 export CRYPTOLABEL_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./cryptolabel-cli list address
+./cryptolabel-cli load 1 address            # {id:1} shorthand
+./cryptolabel-cli load '{id:1}' address       # explicit match map
 
 # 5. Override the API base URL for a single call
-CRYPTOLABEL_BASE=https://api.example.com ./cryptolabel-cli list address
+CRYPTOLABEL_BASE=https://api.example.com ./cryptolabel-cli load 1 address
 
 # 6. No arguments -> interactive REPL
 ./cryptolabel-cli
-cryptolabel> list address
+cryptolabel> load 1 address
 cryptolabel> /quit
 ```
 
@@ -52,7 +53,7 @@ cryptolabel> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/cryptolabel-cli list address
+   ./dist/*/cryptolabel-cli load 1 address
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -62,14 +63,15 @@ That is the whole loop: *build → set key → evaluate boru expressions*.
 
 ## How-to guides
 
-### List the records of an entity
+### Load a single record
 
 ```sh
-./cryptolabel-cli list address
+./cryptolabel-cli load 1 address          # scalar shorthand for {id:1}
+./cryptolabel-cli load '{id:1}' address     # explicit match map
 ```
 
-`list <entity>` returns the first page of records. `<entity>` is a bareword —
-it is auto-quoted as an boru atom, so no quotes are needed.
+The query is either a **scalar** (`1`, treated as `{id:1}`) or a **match map**
+(`{id:1}`, `{slug:"acme"}`). Quote the map so your shell passes it through intact.
 
 ### Authenticate and choose an environment
 
@@ -78,7 +80,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export CRYPTOLABEL_APIKEY=sk_live_xxx            # API key
 export CRYPTOLABEL_BASE=https://api.example.com  # optional: override the API base URL
-./cryptolabel-cli list address
+./cryptolabel-cli load 1 address
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -90,7 +92,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./cryptolabel-cli
-cryptolabel> list address
+cryptolabel> load 1 address
 cryptolabel> /help
 cryptolabel> /quit
 ```
@@ -115,7 +117,7 @@ The CLI registers these boru words, each bound to the SDK:
 
 | Word     | Signatures                                    | Returns                        |
 |----------|-----------------------------------------------|--------------------------------|
-| `list`   | `list <entity>` · `list <query> <entity>`     | First page of records          |
+| `load`   | `load <entity>` · `load <query> <entity>`     | A single record                |
 
 - `<entity>` is a bareword, auto-quoted as an boru atom (e.g. `address`).
 - `<query>` is either a **Map** (`{id:1}`) or a **Scalar** (`1`, treated as

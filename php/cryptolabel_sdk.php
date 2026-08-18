@@ -40,7 +40,7 @@ class CryptolabelSDK
         $utility = new CryptolabelUtility();
         $this->_utility = $utility;
 
-        $config = CryptolabelConfig::make_config();
+        $config = CryptolabelConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

@@ -15,20 +15,14 @@ declare(strict_types=1);
 /** Address entity data model. */
 class Address
 {
-    public string $category;
-    public string $method;
-    public string $readableCategory;
-    public string $readableMethod;
-    public string $readableSourceType;
-    public string $readableStatus;
-    public string $readableType;
-    public string $sourceType;
-    public string $status;
-    public string $type;
+    public array $address;
+    public array $entity;
+    public array $labels;
+    public array $query;
 }
 
-/** Request payload for Address#list. */
-class AddressListMatch
+/** Request payload for Address#load. */
+class AddressLoadMatch
 {
     public string $address;
     public string $chain;

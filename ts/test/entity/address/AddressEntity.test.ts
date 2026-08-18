@@ -39,7 +39,7 @@ describe('AddressEntity', async () => {
   test('basic', async (t) => {
 
     const live = 'TRUE' === process.env.CRYPTOLABEL_TEST_LIVE
-    for (const op of ['list']) {
+    for (const op of ['load']) {
       if (maybeSkipControl(t, 'entityOp', 'address.' + op, live)) return
     }
 
@@ -59,13 +59,9 @@ describe('AddressEntity', async () => {
 
     let address_ref01_data = Object.values(setup.data.existing.address)[0] as any
 
-    // LIST
+    // LOAD: skipped — no entity id field and load requires path params.
+    // Entity-var is declared here so later flow steps still compile.
     const address_ref01_ent = client.Address()
-    const address_ref01_match: any = {}
-    address_ref01_match['address'] = setup.idmap['address01']
-    address_ref01_match['chain'] = setup.idmap['chain01']
-
-    const address_ref01_list = (await address_ref01_ent.list(address_ref01_match)).map((e: any) => e.data())
 
 
   })

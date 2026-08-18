@@ -19,11 +19,11 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 This SDK exposes the API as a small set of **semantic entities** — Address — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
-support (`list`):
+support (`load`):
 
 ```ts
 const client = new CryptolabelSDK()
-const items = await client.Address().list({ address: "example", chain: "example" })
+const address = await client.Address().load({ address: "example", chain: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -47,18 +47,18 @@ const client = CryptolabelSDK.test({
     },
   },
 })
-const addresss = await client.Address().list()
-// addresss is an array of Address entities, populated with mock data
-// — call addresss[0].data() for the record itself
-console.log(addresss)
+const address = await client.Address().load({ address: 'example_address', chain: 'example_chain' })
+// address is the Address entity, populated with mock data
+// — call address.data() for the record itself
+console.log(address)
 ```
 
 ### Python
 
 ```python
 client = CryptolabelSDK.test()
-addresss = client.Address().list()
-print(addresss)
+address = client.Address().load({"address": "example", "chain": "example"})
+print(address)
 ```
 
 ### PHP
@@ -68,14 +68,14 @@ print(addresss)
 $client = CryptolabelSDK::test([
     "entity" => ["address" => ["test01" => []]],
 ]);
-$addresss = $client->Address()->list();
+$address = $client->Address()->load(["address" => "example", "chain" => "example"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Address(nil).List(
+result, err := client.Address(nil).Load(
     nil, nil,
 )
 ```
@@ -87,14 +87,14 @@ result, err := client.Address(nil).List(
 client = CryptolabelSDK.test({
   "entity" => { "address" => { "test01" => {} } },
 })
-addresss = client.Address.list()
+address = client.Address.load({ "address" => "example", "chain" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Address():list()
+local result, err = client:Address():load({ address = "example", chain = "example" })
 ```
 
 ## Packages
@@ -119,11 +119,13 @@ import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
 
 const client = new CryptolabelSDK()
 
-// List all addresss (returns AddressEntity[] — .data() for the record)
-const addresss = await client.Address().list({ address: "example", chain: "example" })
-for (const address of addresss) {
-  console.log(address)
-}
+
+// Load a specific address (returns a Address)
+const address = await client.Address().load({
+  address: 'example_address',
+  chain: 'example_chain',
+})
+console.log(address)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -164,9 +166,9 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Address** | The Address entity (list). | `/address/{chain}/{address}` |
+| **Address** | The Address entity (load). | `/address/{chain}/{address}` |
 
-The operations available across these entities are **list** — see each entity's
+The operations available across these entities are **load** — see each entity's
 own list above for exactly which it supports.
 
 ## Quickstart in other languages
@@ -178,10 +180,10 @@ from cryptolabel_sdk import CryptolabelSDK
 
 client = CryptolabelSDK()
 
-# List all addresss (returns a list, raises on error)
-addresss = client.Address().list({"address": "example", "chain": "example"})
-for address in addresss:
-    print(address)
+
+# Load a specific address (returns the record, raises on error)
+address = client.Address().load({"address": "example_address", "chain": "example_chain"})
+print(address)
 ```
 
 ### PHP
@@ -192,9 +194,10 @@ require_once 'cryptolabel_sdk.php';
 
 $client = new CryptolabelSDK();
 
-// List all addresss (returns an array; throws on error)
-$addresss = $client->Address()->list();
-print_r($addresss);
+
+// Load a specific address (returns the ENTITY; call data_get() for the record; throws on error)
+$address = $client->Address()->load(["address" => "example_address", "chain" => "example_chain"]);
+print_r($address);
 ```
 
 ### Golang
@@ -204,12 +207,15 @@ import sdk "github.com/voxgig-sdk/cryptolabel-sdk/go"
 
 client := sdk.New()
 
-// List all addresss
-addresss, err := client.Address(nil).List(nil, nil)
+
+// Load a specific address
+address, err := client.Address(nil).Load(
+    map[string]any{"address": "example_address", "chain": "example_chain"}, nil,
+)
 if err != nil {
     panic(err)
 }
-fmt.Println(addresss)
+fmt.Println(address)
 ```
 
 ### Ruby
@@ -219,9 +225,10 @@ require_relative "Cryptolabel_sdk"
 
 client = CryptolabelSDK.new
 
-# List all addresss (returns an Array; raises on error)
-addresss = client.Address.list
-puts addresss
+
+# Load a specific address (returns the ENTITY; call data_get for the record)
+address = client.Address.load({ "address" => "example_address", "chain" => "example_chain" })
+puts address
 ```
 
 ### Lua
@@ -231,9 +238,10 @@ local sdk = require("cryptolabel_sdk")
 
 local client = sdk.new()
 
--- List all addresss
-local addresss, err = client:Address():list()
-print(addresss)
+
+-- Load a specific address
+local address, err = client:Address():load({ address = "example_address", chain = "example_chain" })
+print(address)
 ```
 
 ## Direct and prepare

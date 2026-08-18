@@ -98,29 +98,23 @@ fmt.Println(address.GetName()) // "address"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `category` | `string` | Yes |  |
-| `method` | `string` | Yes |  |
-| `readableCategory` | `string` | Yes |  |
-| `readableMethod` | `string` | Yes |  |
-| `readableSourceType` | `string` | Yes |  |
-| `readableStatus` | `string` | Yes |  |
-| `readableType` | `string` | Yes |  |
-| `sourceType` | `string` | Yes |  |
-| `status` | `string` | Yes |  |
-| `type` | `string` | Yes |  |
+| `address` | `map[string]any` | Yes |  |
+| `entity` | `map[string]any` | Yes |  |
+| `labels` | `[]any` | Yes |  |
+| `query` | `map[string]any` | Yes |  |
 
 ### Operations
 
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
+#### `Load(reqmatch, ctrl map[string]any) (any, error)`
 
-List entities matching the given criteria. Returns an array.
+Load a single entity matching the given criteria.
 
 ```go
-results, err := client.Address(nil).List(nil, nil)
+result, err := client.Address(nil).Load(map[string]any{"address": "address", "chain": "chain"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(results)
+fmt.Println(result)
 ```
 
 ### Common Methods

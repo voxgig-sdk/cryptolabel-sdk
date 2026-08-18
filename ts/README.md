@@ -5,7 +5,7 @@
 The TypeScript SDK for the Cryptolabel API — a type-safe, entity-oriented client with full async/await support.
 
 The API is exposed as capitalised, semantic **Entities** — e.g.
-`client.Address()` — each with a small set of operations (`list`)
+`client.Address()` — each with a small set of operations (`load`)
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
@@ -33,17 +33,20 @@ import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
 const client = new CryptolabelSDK()
 ```
 
-### 2. List address records
+### 3. Load an address
 
-`list()` resolves to an array of Address ENTITIES — every operation
-resolves to entities, not raw records. Iterate them directly, and call
-`.data()` on one for the record it holds:
+Address is nested under address, so provide the `address`.
+`load()` returns the entity directly and throws on failure:
 
 ```ts
-const addresss = await client.Address().list({ address: "example", chain: "example" })
-
-for (const address of addresss) {
+try {
+  const address = await client.Address().load({
+    address: 'example_address',
+    chain: 'example_chain',
+  })
   console.log(address)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -54,10 +57,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const addresss = await client.Address().list()
-  console.log(addresss)
+  const address = await client.Address().load({ address: "example", chain: "example" })
+  console.log(address)
 } catch (err) {
-  console.error('list failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
@@ -121,7 +124,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = CryptolabelSDK.test()
 
-const address = await client.Address().list()
+const address = await client.Address().load({ address: 'example_address', chain: 'example_chain' })
 // address is the entity, populated with mock response data
 // — call address.data() for the record itself
 console.log(address)
@@ -142,7 +145,7 @@ Entity instances remember their last match and data:
 const entity = client.Address()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.load({ address: 'example_address', chain: 'example_chain' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -234,7 +237,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
 | `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
 | `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
@@ -246,8 +249,7 @@ All entities share the same interface.
 Entity operations resolve to the entity data directly — there is no
 result envelope:
 
-- `list` resolves to an **array** of entity objects (iterate it directly;
-  there is no `.data` and no `.ok`).
+- `load` resolves to a single entity object.
 
 On a failed request these methods **throw**, so wrap calls in
 `try`/`catch` to handle errors. Only `direct()` returns the result
@@ -287,18 +289,12 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `category` |  |
-| `method` |  |
-| `readableCategory` |  |
-| `readableMethod` |  |
-| `readableSourceType` |  |
-| `readableStatus` |  |
-| `readableType` |  |
-| `sourceType` |  |
-| `status` |  |
-| `type` |  |
+| `address` |  |
+| `entity` |  |
+| `labels` |  |
+| `query` |  |
 
-Operations: list.
+Operations: load.
 
 API path: `/address/{chain}/{address}`
 
@@ -315,27 +311,21 @@ Create an instance: `const address = client.Address()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | `string` |  |
-| `method` | `string` |  |
-| `readableCategory` | `string` |  |
-| `readableMethod` | `string` |  |
-| `readableSourceType` | `string` |  |
-| `readableStatus` | `string` |  |
-| `readableType` | `string` |  |
-| `sourceType` | `string` |  |
-| `status` | `string` |  |
-| `type` | `string` |  |
+| `address` | `Record<string, any>` |  |
+| `entity` | `Record<string, any>` |  |
+| `labels` | `any[]` |  |
+| `query` | `Record<string, any>` |  |
 
-#### Example: List
+#### Example: Load
 
 ```ts
-const addresss = await client.Address().list({ address: "example", chain: "example" })
+const address = await client.Address().load({ address: 'address', chain: 'chain' })
 ```
 
 
@@ -403,15 +393,15 @@ import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const address = client.Address()
-await address.list()
+await address.load({ address: "example", chain: "example" })
 
-// address.data() now returns the address data from the last `list`
+// address.data() now returns the address data from the last `load`
 // address.match() returns the last match criteria
 ```
 

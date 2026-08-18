@@ -17,18 +17,12 @@ from typing import TypedDict, Any
 
 
 class Address(TypedDict):
-    category: str
-    method: str
-    readableCategory: str
-    readableMethod: str
-    readableSourceType: str
-    readableStatus: str
-    readableType: str
-    sourceType: str
-    status: str
-    type: str
+    address: dict
+    entity: dict
+    labels: list
+    query: dict
 
 
-class AddressListMatch(TypedDict):
+class AddressLoadMatch(TypedDict):
     address: str
     chain: str

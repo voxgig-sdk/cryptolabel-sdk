@@ -4,7 +4,7 @@
 
 The PHP SDK for the Cryptolabel API — an entity-oriented client using PHP conventions.
 
-The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Address()` — with named operations (`list`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Address()` — with named operations (`load`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
 
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
@@ -31,15 +31,15 @@ require_once 'cryptolabel_sdk.php';
 $client = new CryptolabelSDK();
 ```
 
-### 2. List address records
+### 3. Load an address
+
+Address is nested under address, so provide the `address`.
 
 ```php
 try {
-    // list() returns an array of Address records — iterate directly.
-    $addresss = $client->Address()->list();
-    foreach ($addresss as $item) {
-        echo $item["category"] . "\n";
-    }
+    // load() returns the ENTITY — call data_get() for the Address record (throws on error).
+    $address = $client->Address()->load(["address" => "example_address", "chain" => "example_chain"]);
+    print_r($address);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -53,7 +53,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $addresss = $client->Address()->list();
+    $address = $client->Address()->load(["address" => "example", "chain" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -127,7 +127,7 @@ $client = CryptolabelSDK::test();
 
 // Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$address = $client->Address()->list();
+$address = $client->Address()->load(["address" => "example", "chain" => "example"]);
 print_r($address);
 ```
 
@@ -215,7 +215,7 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
+| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
 | `data_get` | `(): array` | Get entity data. |
 | `data_set` | `($data): void` | Set entity data. |
 | `match_get` | `(): array` | Get entity match criteria. |
@@ -247,18 +247,12 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `category` |  |
-| `method` |  |
-| `readableCategory` |  |
-| `readableMethod` |  |
-| `readableSourceType` |  |
-| `readableStatus` |  |
-| `readableType` |  |
-| `sourceType` |  |
-| `status` |  |
-| `type` |  |
+| `address` |  |
+| `entity` |  |
+| `labels` |  |
+| `query` |  |
 
-Operations: List.
+Operations: Load.
 
 API path: `/address/{chain}/{address}`
 
@@ -275,28 +269,22 @@ Create an instance: `$address = $client->Address();`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `category` | `string` |  |
-| `method` | `string` |  |
-| `readableCategory` | `string` |  |
-| `readableMethod` | `string` |  |
-| `readableSourceType` | `string` |  |
-| `readableStatus` | `string` |  |
-| `readableType` | `string` |  |
-| `sourceType` | `string` |  |
-| `status` | `string` |  |
-| `type` | `string` |  |
+| `address` | `array` |  |
+| `entity` | `array` |  |
+| `labels` | `array` |  |
+| `query` | `array` |  |
 
-#### Example: List
+#### Example: Load
 
 ```php
-// list() returns an array of Address records (throws on error).
-$addresss = $client->Address()->list();
+// load() returns the ENTITY — call data_get() for the Address record (throws on error).
+$address = $client->Address()->load(["address" => "address", "chain" => "chain"]);
 ```
 
 
@@ -372,14 +360,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $address = $client->Address();
-$address->list();
+$address->load(["address" => "example", "chain" => "example"]);
 
-// $address->data_get() now returns the address data from the last list
+// $address->data_get() now returns the address data from the last load
 // $address->match_get() returns the last match criteria
 ```
 
