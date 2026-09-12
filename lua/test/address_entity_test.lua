@@ -44,10 +44,14 @@ describe("AddressEntity", function()
 
     -- LOAD
     local address_ref01_ent = client:Address(nil)
-    local address_ref01_match_dt0 = {}
+    local address_ref01_match_dt0 = {
+      id = address_ref01_data["id"],
+    }
     local address_ref01_data_dt0_loaded, err = address_ref01_ent:load(address_ref01_match_dt0, nil)
     assert.is_nil(err)
-    assert.is_not_nil(address_ref01_data_dt0_loaded)
+    local address_ref01_data_dt0_load_result = helpers.to_map(type(address_ref01_data_dt0_loaded) == 'table' and address_ref01_data_dt0_loaded.data_get and address_ref01_data_dt0_loaded:data_get() or address_ref01_data_dt0_loaded)
+    assert.is_not_nil(address_ref01_data_dt0_load_result)
+    assert.are.equal(address_ref01_data_dt0_load_result["id"], address_ref01_data["id"])
 
   end)
 end)
@@ -101,6 +105,9 @@ function address_basic_setup(extra)
 
   if env["CRYPTOLABEL_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
       },
       extra or {},

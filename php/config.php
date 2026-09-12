@@ -68,6 +68,10 @@ class CryptolabelConfig
               'type' => '`$OBJECT`',
             ],
             [
+              'name' => 'id',
+              'type' => '`$STRING`',
+            ],
+            [
               'name' => 'labels',
               'req' => true,
               'type' => '`$ARRAY`',
@@ -77,6 +81,15 @@ class CryptolabelConfig
               'req' => true,
               'type' => '`$OBJECT`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+            'parts' => [
+              'chain',
+              'address',
+            ],
+            'sep' => '/',
           ],
           'name' => 'address',
           'op' => [
@@ -121,10 +134,16 @@ class CryptolabelConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/address/{chain}/{address}',
-                  'parts' => [
-                    'address',
-                    '{chain}',
-                    '{address}',
+                  'segments' => [
+                    [
+                      'lit' => 'address',
+                    ],
+                    [
+                      'var' => 'chain',
+                    ],
+                    [
+                      'var' => 'address',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -137,6 +156,11 @@ class CryptolabelConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.address`',
+                  ],
+                  'parts' => [
+                    'address',
+                    '{chain}',
+                    '{address}',
                   ],
                 ],
               ],

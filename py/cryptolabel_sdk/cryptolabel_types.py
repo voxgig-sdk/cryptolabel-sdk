@@ -16,11 +16,15 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Address(TypedDict):
+class AddressRequired(TypedDict):
     address: dict
     entity: dict
     labels: list
     query: dict
+
+
+class Address(AddressRequired, total=False):
+    id: str
 
 
 class AddressLoadMatch(TypedDict):

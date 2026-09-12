@@ -9,6 +9,7 @@
 ---@class Address
 ---@field address table
 ---@field entity table
+---@field id? string
 ---@field labels table
 ---@field query table
 

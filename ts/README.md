@@ -149,7 +149,7 @@ await entity.load({ address: 'example_address', chain: 'example_chain' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data)
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -291,6 +291,7 @@ The `prepare()` method returns:
 | --- | --- |
 | `address` |  |
 | `entity` |  |
+| `id` |  |
 | `labels` |  |
 | `query` |  |
 
@@ -319,6 +320,7 @@ Create an instance: `const address = client.Address()`
 | --- | --- | --- |
 | `address` | `Record<string, any>` |  |
 | `entity` | `Record<string, any>` |  |
+| `id` | `string` |  |
 | `labels` | `any[]` |  |
 | `query` | `Record<string, any>` |  |
 

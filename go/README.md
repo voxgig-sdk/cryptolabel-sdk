@@ -260,6 +260,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | --- | --- |
 | `"address"` |  |
 | `"entity"` |  |
+| `"id"` |  |
 | `"labels"` |  |
 | `"query"` |  |
 
@@ -288,6 +289,7 @@ Create an instance: `address := client.Address(nil)`
 | --- | --- | --- |
 | `address` | `map[string]any` |  |
 | `entity` | `map[string]any` |  |
+| `id` | `string` |  |
 | `labels` | `[]any` |  |
 | `query` | `map[string]any` |  |
 

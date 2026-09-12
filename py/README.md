@@ -244,6 +244,7 @@ On error, `ok` is `False` and `err` contains the error value.
 | --- | --- |
 | `address` |  |
 | `entity` |  |
+| `id` |  |
 | `labels` |  |
 | `query` |  |
 
@@ -272,6 +273,7 @@ Create an instance: `address = client.Address()`
 | --- | --- | --- |
 | `address` | `dict` |  |
 | `entity` | `dict` |  |
+| `id` | `str` |  |
 | `labels` | `list` |  |
 | `query` | `dict` |  |
 

@@ -100,6 +100,7 @@ fmt.Println(address.GetName()) // "address"
 | --- | --- | --- | --- |
 | `address` | `map[string]any` | Yes |  |
 | `entity` | `map[string]any` | Yes |  |
+| `id` | `string` | No |  |
 | `labels` | `[]any` | Yes |  |
 | `query` | `map[string]any` | Yes |  |
 

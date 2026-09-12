@@ -94,6 +94,7 @@ $address = $client->Address();
 | --- | --- | --- | --- |
 | `address` | `array` | Yes |  |
 | `entity` | `array` | Yes |  |
+| `id` | `string` | No |  |
 | `labels` | `array` | Yes |  |
 | `query` | `array` | Yes |  |
 

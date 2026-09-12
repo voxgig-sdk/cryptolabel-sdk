@@ -92,6 +92,7 @@ local address = client:Address(nil)
 | --- | --- | --- | --- |
 | `address` | `table` | Yes |  |
 | `entity` | `table` | Yes |  |
+| `id` | `string` | No |  |
 | `labels` | `table` | Yes |  |
 | `query` | `table` | Yes |  |
 

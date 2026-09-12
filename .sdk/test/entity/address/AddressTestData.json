@@ -4,26 +4,26 @@
       "ADDRESS00": {
         "address": {},
         "entity": {},
+        "id": "ADDRESS00",
         "labels": [],
         "query": {},
-        "chain": "CHAIN01",
-        "id": "ADDRESS00"
+        "chain": "CHAIN01"
       },
       "ADDRESS01": {
         "address": {},
         "entity": {},
+        "id": "ADDRESS01",
         "labels": [],
         "query": {},
-        "chain": "CHAIN01",
-        "id": "ADDRESS01"
+        "chain": "CHAIN01"
       },
       "ADDRESS02": {
         "address": {},
         "entity": {},
+        "id": "ADDRESS02",
         "labels": [],
         "query": {},
-        "chain": "CHAIN01",
-        "id": "ADDRESS02"
+        "chain": "CHAIN01"
       }
     }
   },

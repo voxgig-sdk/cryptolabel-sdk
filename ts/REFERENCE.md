@@ -118,6 +118,7 @@ const address = client.Address()
 | --- | --- | --- | --- |
 | `address` | `Record<string, any>` | Yes |  |
 | `entity` | `Record<string, any>` | Yes |  |
+| `id` | `string` | No |  |
 | `labels` | `any[]` | Yes |  |
 | `query` | `Record<string, any>` | Yes |  |
 

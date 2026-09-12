@@ -17,6 +17,7 @@ class Address
 {
     public array $address;
     public array $entity;
+    public ?string $id = null;
     public array $labels;
     public array $query;
 }

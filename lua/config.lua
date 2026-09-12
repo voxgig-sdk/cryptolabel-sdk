@@ -42,6 +42,10 @@ local function make_config()
             ["type"] = "`$OBJECT`",
           },
           {
+            ["name"] = "id",
+            ["type"] = "`$STRING`",
+          },
+          {
             ["name"] = "labels",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
@@ -51,6 +55,15 @@ local function make_config()
             ["req"] = true,
             ["type"] = "`$OBJECT`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+          ["parts"] = {
+            "chain",
+            "address",
+          },
+          ["sep"] = "/",
         },
         ["name"] = "address",
         ["op"] = {
@@ -95,10 +108,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/address/{chain}/{address}",
-                ["parts"] = {
-                  "address",
-                  "{chain}",
-                  "{address}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "address",
+                  },
+                  {
+                    ["var"] = "chain",
+                  },
+                  {
+                    ["var"] = "address",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -111,6 +130,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.address`",
+                },
+                ["parts"] = {
+                  "address",
+                  "{chain}",
+                  "{address}",
                 },
               },
             },

@@ -239,6 +239,7 @@ returns a result `Hash` with these keys:
 | --- | --- |
 | `address` |  |
 | `entity` |  |
+| `id` |  |
 | `labels` |  |
 | `query` |  |
 
@@ -267,6 +268,7 @@ Create an instance: `address = client.Address`
 | --- | --- | --- |
 | `address` | `Hash` |  |
 | `entity` | `Hash` |  |
+| `id` | `String` |  |
 | `labels` | `Array` |  |
 | `query` | `Hash` |  |
 

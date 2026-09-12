@@ -16,6 +16,9 @@
 # @!attribute [rw] entity
 #   @return [Hash]
 #
+# @!attribute [rw] id
+#   @return [String, nil]
+#
 # @!attribute [rw] labels
 #   @return [Array]
 #
@@ -24,6 +27,7 @@
 Address = Struct.new(
   :address,
   :entity,
+  :id,
   :labels,
   :query,
   keyword_init: true

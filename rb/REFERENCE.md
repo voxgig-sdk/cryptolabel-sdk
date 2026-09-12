@@ -95,6 +95,7 @@ address = client.Address
 | --- | --- | --- | --- |
 | `address` | `Hash` | Yes |  |
 | `entity` | `Hash` | Yes |  |
+| `id` | `String` | No |  |
 | `labels` | `Array` | Yes |  |
 | `query` | `Hash` | Yes |  |
 

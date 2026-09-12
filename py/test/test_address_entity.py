@@ -48,9 +48,13 @@ class TestAddressEntity:
 
         # LOAD
         address_ref01_ent = client.Address(None)
-        address_ref01_match_dt0 = {}
+        address_ref01_match_dt0 = {
+            "id": address_ref01_data["id"],
+        }
         address_ref01_data_dt0_loaded = address_ref01_ent.load(address_ref01_match_dt0, None)
-        assert address_ref01_data_dt0_loaded is not None
+        address_ref01_data_dt0_load_result = helpers.to_map(runner.entity_data(address_ref01_data_dt0_loaded))
+        assert address_ref01_data_dt0_load_result is not None
+        assert address_ref01_data_dt0_load_result["id"] == address_ref01_data["id"]
 
 
 
@@ -99,6 +103,10 @@ def _address_basic_setup(extra):
 
     if env.get("CRYPTOLABEL_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
+            # FIRST, so the generated fields below win: sdk-test-control.json's
+            # test.client.options adds to the live client, it does not
+            # redirect it.
+            runner.live_client_options(),
             {
             },
             extra or {},

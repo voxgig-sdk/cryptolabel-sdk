@@ -89,6 +89,7 @@ address = client.Address()
 | --- | --- | --- | --- |
 | `address` | `dict` | Yes |  |
 | `entity` | `dict` | Yes |  |
+| `id` | `str` | No |  |
 | `labels` | `list` | Yes |  |
 | `query` | `dict` | Yes |  |
 

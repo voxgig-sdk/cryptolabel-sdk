@@ -54,6 +54,10 @@ module CryptolabelConfig
               "type" => "`$OBJECT`",
             },
             {
+              "name" => "id",
+              "type" => "`$STRING`",
+            },
+            {
               "name" => "labels",
               "req" => true,
               "type" => "`$ARRAY`",
@@ -64,6 +68,15 @@ module CryptolabelConfig
               "type" => "`$OBJECT`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+            "parts" => [
+              "chain",
+              "address",
+            ],
+            "sep" => "/",
+          },
           "name" => "address",
           "op" => {
             "load" => {
@@ -107,10 +120,16 @@ module CryptolabelConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/address/{chain}/{address}",
-                  "parts" => [
-                    "address",
-                    "{chain}",
-                    "{address}",
+                  "segments" => [
+                    {
+                      "lit" => "address",
+                    },
+                    {
+                      "var" => "chain",
+                    },
+                    {
+                      "var" => "address",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -124,6 +143,11 @@ module CryptolabelConfig
                     "req" => "`reqdata`",
                     "res" => "`body.address`",
                   },
+                  "parts" => [
+                    "address",
+                    "{chain}",
+                    "{address}",
+                  ],
                 },
               ],
             },

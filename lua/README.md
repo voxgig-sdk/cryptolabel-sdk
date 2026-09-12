@@ -229,6 +229,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | --- | --- |
 | `address` |  |
 | `entity` |  |
+| `id` |  |
 | `labels` |  |
 | `query` |  |
 
@@ -257,6 +258,7 @@ Create an instance: `local address = client:Address(nil)`
 | --- | --- | --- |
 | `address` | `table` |  |
 | `entity` | `table` |  |
+| `id` | `string` |  |
 | `labels` | `table` |  |
 | `query` | `table` |  |
 

@@ -16,6 +16,7 @@ import (
 type Address struct {
 	Address map[string]any `json:"address"`
 	Entity map[string]any `json:"entity"`
+	Id *string `json:"id,omitempty"`
 	Labels []any `json:"labels"`
 	Query map[string]any `json:"query"`
 }

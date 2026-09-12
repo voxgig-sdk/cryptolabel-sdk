@@ -249,6 +249,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 | --- | --- |
 | `address` |  |
 | `entity` |  |
+| `id` |  |
 | `labels` |  |
 | `query` |  |
 
@@ -277,6 +278,7 @@ Create an instance: `$address = $client->Address();`
 | --- | --- | --- |
 | `address` | `array` |  |
 | `entity` | `array` |  |
+| `id` | `string` |  |
 | `labels` | `array` |  |
 | `query` | `array` |  |
 
