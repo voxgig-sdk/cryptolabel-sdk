@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
+import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel-sdk'
 
 const client = new CryptolabelSDK()
 ```
@@ -413,7 +413,7 @@ cryptolabel/
 Import the SDK from the package root:
 
 ```ts
-import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
+import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel-sdk'
 ```
 
 ### Entity state

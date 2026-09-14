@@ -105,7 +105,7 @@ local result, err = client:Address():load({ address = "example", chain = "exampl
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
+| TypeScript | `@voxgig-sdk/cryptolabel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
 | Python | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
 | PHP | `voxgig-sdk/cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/cryptolabel-sdk/go` | `go get github.com/voxgig-sdk/cryptolabel-sdk/go@latest` |
@@ -119,7 +119,7 @@ local result, err = client:Address():load({ address = "example", chain = "exampl
 ### TypeScript
 
 ```ts
-import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel'
+import { CryptolabelSDK } from '@voxgig-sdk/cryptolabel-sdk'
 
 const client = new CryptolabelSDK()
 

@@ -869,7 +869,7 @@
             "registry": {
               "active": false,
               "name": "npm",
-              "package": "",
+              "package": "@voxgig-sdk/cryptolabel-sdk",
               "state": "pending",
               "url": "https://registry.npmjs.org",
               "vault": {
