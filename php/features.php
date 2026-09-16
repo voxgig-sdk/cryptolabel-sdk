@@ -4,7 +4,10 @@ declare(strict_types=1);
 // Cryptolabel SDK feature factory
 
 require_once __DIR__ . '/feature/BaseFeature.php';
+require_once __DIR__ . '/feature/RatelimitFeature.php';
+require_once __DIR__ . '/feature/RetryFeature.php';
 require_once __DIR__ . '/feature/TestFeature.php';
+require_once __DIR__ . '/feature/TimeoutFeature.php';
 
 
 class CryptolabelFeatures
@@ -14,8 +17,14 @@ class CryptolabelFeatures
         switch ($name) {
             case "base":
                 return new CryptolabelBaseFeature();
+            case "ratelimit":
+                return new CryptolabelRatelimitFeature();
+            case "retry":
+                return new CryptolabelRetryFeature();
             case "test":
                 return new CryptolabelTestFeature();
+            case "timeout":
+                return new CryptolabelTimeoutFeature();
             default:
                 return new CryptolabelBaseFeature();
         }
@@ -31,7 +40,10 @@ class CryptolabelFeatures
     {
         switch ($name) {
             case "base":
+            case "ratelimit":
+            case "retry":
             case "test":
+            case "timeout":
                 return true;
             default:
                 return false;

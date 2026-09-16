@@ -1,12 +1,18 @@
 # Cryptolabel SDK feature factory
 
 from cryptolabel_sdk.feature.base_feature import CryptolabelBaseFeature
+from cryptolabel_sdk.feature.ratelimit_feature import CryptolabelRatelimitFeature
+from cryptolabel_sdk.feature.retry_feature import CryptolabelRetryFeature
 from cryptolabel_sdk.feature.test_feature import CryptolabelTestFeature
+from cryptolabel_sdk.feature.timeout_feature import CryptolabelTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: CryptolabelBaseFeature(),
+    "ratelimit": lambda: CryptolabelRatelimitFeature(),
+    "retry": lambda: CryptolabelRetryFeature(),
     "test": lambda: CryptolabelTestFeature(),
+    "timeout": lambda: CryptolabelTimeoutFeature(),
 }
 
 

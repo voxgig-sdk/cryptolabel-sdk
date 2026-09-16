@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { CryptolabelSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('AddressEntity', async () => {
 
     const live = 'TRUE' === process.env.CRYPTOLABEL_TEST_LIVE
     for (const op of ['load']) {
-      if (maybeSkipControl(t, 'entityOp', 'address.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'address.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set CRYPTOLABEL_TEST_ADDRESS_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"address","req":true,"type":"`$OBJECT`","index$":0},{"active":true,"name":"entity","req":true,"type":"`$OBJECT`","index$":1},{"active":true,"name":"id","req":false,"type":"`$STRING`","index$":2},{"active":true,"name":"labels","req":true,"type":"`$ARRAY`","index$":3},{"active":true,"name":"query","req":true,"type":"`$OBJECT`","index$":4}],"id":{"field":"id","name":"id","parts":["chain","address"],"sep":"/"},"name":"address","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{"header":[{"active":true,"example":"application/json","kind":"header","name":"accept","orig":"accept","reqd":false,"type":"`$STRING`"},{"active":true,"kind":"header","name":"user_agent","orig":"user_agent","reqd":false,"type":"`$STRING`"}],"params":[{"active":true,"kind":"param","name":"address","orig":"address","reqd":true,"type":"`$STRING`","index$":0},{"active":true,"kind":"param","name":"chain","orig":"chain","reqd":true,"type":"`$STRING`","index$":1}]},"contract":{"id":"GET /address/{chain}/{address}","json":"{\"operationId\":\"getAddressDetails\",\"parameters\":[{\"description\":\"Blockchain identifier.\",\"in\":\"path\",\"name\":\"chain\",\"required\":true,\"schema\":{\"enum\":[\"bitcoin\",\"ethereum\",\"tron\"],\"type\":\"string\"}},{\"description\":\"Address validated against the selected chain.\",\"in\":\"path\",\"name\":\"address\",\"required\":true,\"schema\":{\"examples\":[\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\"],\"minLength\":1,\"type\":\"string\"}},{\"description\":\"Set to application/json.\",\"in\":\"header\",\"name\":\"Accept\",\"required\":false,\"schema\":{\"default\":\"application/json\",\"type\":\"string\"}},{\"description\":\"If possible, include your application name and a contact email so CryptoLabel can reach you about API updates, maintenance, or request-specific issues.\",\"in\":\"header\",\"name\":\"User-Agent\",\"required\":false,\"schema\":{\"examples\":[\"YourAppName/1.0 (contact@example.com)\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"examples\":{\"ethereumKraken\":{\"value\":{\"address\":{\"explorerUrl\":\"https://www.blockchain.com/explorer/addresses/eth/0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\",\"model\":\"account_based\",\"readableModel\":\"Account-based model\",\"readableType\":\"Externally Owned Account\",\"type\":\"eoa\",\"value\":\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\"},\"entity\":{\"category\":\"exchange\",\"name\":\"Kraken\",\"readableCategory\":\"Exchange\"},\"labels\":[{\"category\":\"cex\",\"method\":\"aggregation\",\"readableCategory\":\"Centralized Exchange\",\"readableMethod\":\"Aggregation\",\"readableSourceType\":\"Public\",\"readableStatus\":\"Active\",\"readableType\":\"Exchange Cold Wallet\",\"sourceType\":\"public\",\"status\":\"active\",\"type\":\"exchange_cold_wallet\"}],\"query\":{\"address\":\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\",\"chain\":\"ethereum\",\"readableChain\":\"Ethereum\"}}}},\"schema\":{\"properties\":{\"address\":{\"properties\":{\"explorerUrl\":{\"format\":\"uri\",\"type\":\"string\"},\"model\":{\"enum\":[\"account_based\",\"utxo\"],\"type\":\"string\"},\"readableModel\":{\"type\":\"string\"},\"readableType\":{\"type\":\"string\"},\"type\":{\"enum\":[\"contract\",\"eoa\",\"unknown\"],\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"required\":[\"value\",\"type\",\"readableType\",\"model\",\"readableModel\",\"explorerUrl\"],\"type\":\"object\"},\"entity\":{\"properties\":{\"category\":{\"enum\":[\"bridge\",\"custodian\",\"dao\",\"defi_protocol\",\"dex_aggregator\",\"exchange\",\"gambling_service\",\"government\",\"individual_address\",\"illicit_activity\",\"marketplace\",\"mining_pool\",\"mixer\",\"payment_service\",\"public_figure\",\"service_provider\",\"token_issuer\",\"wallet_provider\",\"unknown\"],\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"readableCategory\":{\"type\":\"string\"}},\"required\":[\"name\",\"category\",\"readableCategory\"],\"type\":\"object\"},\"labels\":{\"items\":{\"properties\":{\"category\":{\"enum\":[\"behavior\",\"bridge\",\"cex\",\"compliance\",\"crime\",\"custody\",\"defi\",\"flow\",\"fraud\",\"gambling\",\"identity\",\"infrastructure\",\"marketplace\",\"mining\",\"mixer\",\"payment\",\"risk\",\"sanctions\",\"service\",\"trading\",\"treasury\",\"unknown\",\"wallet\"],\"type\":\"string\"},\"method\":{\"enum\":[\"aggregation\",\"heuristic\",\"import\",\"manual\",\"onchain_analysis\"],\"type\":\"string\"},\"readableCategory\":{\"type\":\"string\"},\"readableMethod\":{\"type\":\"string\"},\"readableSourceType\":{\"type\":\"string\"},\"readableStatus\":{\"type\":\"string\"},\"readableType\":{\"type\":\"string\"},\"sourceType\":{\"enum\":[\"internal\",\"manual_review\",\"partner\",\"public\"],\"type\":\"string\"},\"status\":{\"enum\":[\"active\",\"historical\",\"inactive\"],\"type\":\"string\"},\"type\":{\"enum\":[\"bridge_address\",\"burn_address\",\"compliance_related\",\"cross_chain_activity\",\"custodial_wallet\",\"defi_pool\",\"defi_treasury\",\"deployer\",\"dex_contract\",\"darknet_market\",\"exchange_cold_wallet\",\"exchange_deposit_wallet\",\"exchange_hot_wallet\",\"exchange_withdrawal_wallet\",\"forwarder_contract\",\"fraud_related\",\"gambling_address\",\"high_frequency\",\"high_volume\",\"institutional_flow\",\"market_maker_related\",\"marketplace_address\",\"money_laundering\",\"mining_pool_payout\",\"mixer_address\",\"blackmail\",\"payment_processor\",\"phishing\",\"proxy_contract\",\"public_figure_related\",\"risky_service\",\"sanctioned\",\"scam\",\"service_wallet\",\"staking_wallet\",\"stolen_funds\",\"terrorism_related\",\"treasury_wallet\",\"unknown\",\"validator\",\"wrapper_contract\"],\"type\":\"string\"}},\"required\":[\"type\",\"readableType\",\"category\",\"readableCategory\",\"sourceType\",\"readableSourceType\",\"method\",\"readableMethod\",\"status\",\"readableStatus\"],\"type\":\"object\"},\"type\":\"array\"},\"query\":{\"properties\":{\"address\":{\"type\":\"string\"},\"chain\":{\"enum\":[\"bitcoin\",\"ethereum\",\"tron\"],\"type\":\"string\"},\"readableChain\":{\"type\":\"string\"}},\"required\":[\"chain\",\"readableChain\",\"address\"],\"type\":\"object\"}},\"required\":[\"query\",\"address\",\"entity\",\"labels\"],\"type\":\"object\"}}},\"description\":\"Resolved address details.\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Stable machine-readable error code.\",\"examples\":[\"bad_request\"],\"type\":\"string\"},\"message\":{\"description\":\"Safe public error message.\",\"type\":\"string\"},\"path\":{\"examples\":[\"/api/v1/address/ethereum/0x123\"],\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"code\",\"message\",\"path\",\"timestamp\"],\"type\":\"object\"}}},\"description\":\"Invalid chain or address.\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Stable machine-readable error code.\",\"examples\":[\"bad_request\"],\"type\":\"string\"},\"message\":{\"description\":\"Safe public error message.\",\"type\":\"string\"},\"path\":{\"examples\":[\"/api/v1/address/ethereum/0x123\"],\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"code\",\"message\",\"path\",\"timestamp\"],\"type\":\"object\"}}},\"description\":\"Internal server error.\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/address/{chain}/{address}","segments":[{"lit":"address"},{"var":"chain"},{"var":"address"}],"select":{"exist":["accept","address","chain","user_agent"]},"transform":{"req":"`reqdata`","res":"`body.address`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[["address"]]},"key$":"address","name__orig":"address","Name":"Address","name_":"address","name-":"address","NAME":"ADDRESS","index$":0}, {"active":true,"entity":"address","key$":"BasicAddressFlow","kind":"basic","name":"BasicAddressFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"address_ref01","srcdatavar":"address_ref01_data","suffix":"_dt0"},"match":{"chain":"chain01","id":"address01"},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-address_ref01"}}],"index$":0}]}, 'Address')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['CRYPTOLABEL_TEST_ADDRESS_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'CRYPTOLABEL_TEST_ADDRESS_ENTID': idmap,
     'CRYPTOLABEL_TEST_LIVE': 'FALSE',
@@ -127,7 +119,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.CRYPTOLABEL_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['CRYPTOLABEL_TEST_ADDRESS_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new CryptolabelSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -139,7 +137,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -152,7 +151,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.CRYPTOLABEL_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

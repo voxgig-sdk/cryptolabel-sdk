@@ -24,7 +24,71 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "address": {
           "active": true,
@@ -119,6 +183,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /address/{chain}/{address}",
+                    "json": "{\"operationId\":\"getAddressDetails\",\"parameters\":[{\"description\":\"Blockchain identifier.\",\"in\":\"path\",\"name\":\"chain\",\"required\":true,\"schema\":{\"enum\":[\"bitcoin\",\"ethereum\",\"tron\"],\"type\":\"string\"}},{\"description\":\"Address validated against the selected chain.\",\"in\":\"path\",\"name\":\"address\",\"required\":true,\"schema\":{\"examples\":[\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\"],\"minLength\":1,\"type\":\"string\"}},{\"description\":\"Set to application/json.\",\"in\":\"header\",\"name\":\"Accept\",\"required\":false,\"schema\":{\"default\":\"application/json\",\"type\":\"string\"}},{\"description\":\"If possible, include your application name and a contact email so CryptoLabel can reach you about API updates, maintenance, or request-specific issues.\",\"in\":\"header\",\"name\":\"User-Agent\",\"required\":false,\"schema\":{\"examples\":[\"YourAppName/1.0 (contact@example.com)\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"examples\":{\"ethereumKraken\":{\"value\":{\"address\":{\"explorerUrl\":\"https://www.blockchain.com/explorer/addresses/eth/0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\",\"model\":\"account_based\",\"readableModel\":\"Account-based model\",\"readableType\":\"Externally Owned Account\",\"type\":\"eoa\",\"value\":\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\"},\"entity\":{\"category\":\"exchange\",\"name\":\"Kraken\",\"readableCategory\":\"Exchange\"},\"labels\":[{\"category\":\"cex\",\"method\":\"aggregation\",\"readableCategory\":\"Centralized Exchange\",\"readableMethod\":\"Aggregation\",\"readableSourceType\":\"Public\",\"readableStatus\":\"Active\",\"readableType\":\"Exchange Cold Wallet\",\"sourceType\":\"public\",\"status\":\"active\",\"type\":\"exchange_cold_wallet\"}],\"query\":{\"address\":\"0x22af984f13DFB5C80145E3F9eE1050Ae5a5FB651\",\"chain\":\"ethereum\",\"readableChain\":\"Ethereum\"}}}},\"schema\":{\"properties\":{\"address\":{\"properties\":{\"explorerUrl\":{\"format\":\"uri\",\"type\":\"string\"},\"model\":{\"enum\":[\"account_based\",\"utxo\"],\"type\":\"string\"},\"readableModel\":{\"type\":\"string\"},\"readableType\":{\"type\":\"string\"},\"type\":{\"enum\":[\"contract\",\"eoa\",\"unknown\"],\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"required\":[\"value\",\"type\",\"readableType\",\"model\",\"readableModel\",\"explorerUrl\"],\"type\":\"object\"},\"entity\":{\"properties\":{\"category\":{\"enum\":[\"bridge\",\"custodian\",\"dao\",\"defi_protocol\",\"dex_aggregator\",\"exchange\",\"gambling_service\",\"government\",\"individual_address\",\"illicit_activity\",\"marketplace\",\"mining_pool\",\"mixer\",\"payment_service\",\"public_figure\",\"service_provider\",\"token_issuer\",\"wallet_provider\",\"unknown\"],\"type\":\"string\"},\"name\":{\"type\":\"string\"},\"readableCategory\":{\"type\":\"string\"}},\"required\":[\"name\",\"category\",\"readableCategory\"],\"type\":\"object\"},\"labels\":{\"items\":{\"properties\":{\"category\":{\"enum\":[\"behavior\",\"bridge\",\"cex\",\"compliance\",\"crime\",\"custody\",\"defi\",\"flow\",\"fraud\",\"gambling\",\"identity\",\"infrastructure\",\"marketplace\",\"mining\",\"mixer\",\"payment\",\"risk\",\"sanctions\",\"service\",\"trading\",\"treasury\",\"unknown\",\"wallet\"],\"type\":\"string\"},\"method\":{\"enum\":[\"aggregation\",\"heuristic\",\"import\",\"manual\",\"onchain_analysis\"],\"type\":\"string\"},\"readableCategory\":{\"type\":\"string\"},\"readableMethod\":{\"type\":\"string\"},\"readableSourceType\":{\"type\":\"string\"},\"readableStatus\":{\"type\":\"string\"},\"readableType\":{\"type\":\"string\"},\"sourceType\":{\"enum\":[\"internal\",\"manual_review\",\"partner\",\"public\"],\"type\":\"string\"},\"status\":{\"enum\":[\"active\",\"historical\",\"inactive\"],\"type\":\"string\"},\"type\":{\"enum\":[\"bridge_address\",\"burn_address\",\"compliance_related\",\"cross_chain_activity\",\"custodial_wallet\",\"defi_pool\",\"defi_treasury\",\"deployer\",\"dex_contract\",\"darknet_market\",\"exchange_cold_wallet\",\"exchange_deposit_wallet\",\"exchange_hot_wallet\",\"exchange_withdrawal_wallet\",\"forwarder_contract\",\"fraud_related\",\"gambling_address\",\"high_frequency\",\"high_volume\",\"institutional_flow\",\"market_maker_related\",\"marketplace_address\",\"money_laundering\",\"mining_pool_payout\",\"mixer_address\",\"blackmail\",\"payment_processor\",\"phishing\",\"proxy_contract\",\"public_figure_related\",\"risky_service\",\"sanctioned\",\"scam\",\"service_wallet\",\"staking_wallet\",\"stolen_funds\",\"terrorism_related\",\"treasury_wallet\",\"unknown\",\"validator\",\"wrapper_contract\"],\"type\":\"string\"}},\"required\":[\"type\",\"readableType\",\"category\",\"readableCategory\",\"sourceType\",\"readableSourceType\",\"method\",\"readableMethod\",\"status\",\"readableStatus\"],\"type\":\"object\"},\"type\":\"array\"},\"query\":{\"properties\":{\"address\":{\"type\":\"string\"},\"chain\":{\"enum\":[\"bitcoin\",\"ethereum\",\"tron\"],\"type\":\"string\"},\"readableChain\":{\"type\":\"string\"}},\"required\":[\"chain\",\"readableChain\",\"address\"],\"type\":\"object\"}},\"required\":[\"query\",\"address\",\"entity\",\"labels\"],\"type\":\"object\"}}},\"description\":\"Resolved address details.\"},\"400\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Stable machine-readable error code.\",\"examples\":[\"bad_request\"],\"type\":\"string\"},\"message\":{\"description\":\"Safe public error message.\",\"type\":\"string\"},\"path\":{\"examples\":[\"/api/v1/address/ethereum/0x123\"],\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"code\",\"message\",\"path\",\"timestamp\"],\"type\":\"object\"}}},\"description\":\"Invalid chain or address.\"},\"500\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"code\":{\"description\":\"Stable machine-readable error code.\",\"examples\":[\"bad_request\"],\"type\":\"string\"},\"message\":{\"description\":\"Safe public error message.\",\"type\":\"string\"},\"path\":{\"examples\":[\"/api/v1/address/ethereum/0x123\"],\"type\":\"string\"},\"timestamp\":{\"format\":\"date-time\",\"type\":\"string\"}},\"required\":[\"code\",\"message\",\"path\",\"timestamp\"],\"type\":\"object\"}}},\"description\":\"Internal server error.\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/address/{chain}/{address}",
@@ -159,13 +229,223 @@
         }
       },
       "feature": {
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -256,6 +536,102 @@
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
           "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
+          "version": "0.0.1"
         }
       },
       "flow": {
@@ -309,6 +685,48 @@
         "website": "https://cryptolabel.io"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -863,6 +1281,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -904,7 +1323,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }
