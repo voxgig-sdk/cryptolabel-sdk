@@ -105,12 +105,12 @@ local result, err = client:Address():load({ address = "example", chain = "exampl
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/cryptolabel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
-| Python | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
-| PHP | `voxgig-sdk/cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
+| TypeScript | `@voxgig-sdk/cryptolabel-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/tags) |
+| Python | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/tags) |
+| PHP | `voxgig-sdk/cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/cryptolabel-sdk/go` | `go get github.com/voxgig-sdk/cryptolabel-sdk/go@latest` |
-| Ruby | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
-| Lua | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/releases) |
+| Ruby | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/tags) |
+| Lua | `voxgig-sdk-cryptolabel` | publish pending — [install from git tag](https://github.com/voxgig-sdk/cryptolabel-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/cryptolabel-sdk/go-cli` | `go install github.com/voxgig-sdk/cryptolabel-sdk/go-cli/cmd/cryptolabel@latest` |
 | Go MCP server | `github.com/voxgig-sdk/cryptolabel-sdk/go-mcp` | `go get github.com/voxgig-sdk/cryptolabel-sdk/go-mcp@latest` |
 
